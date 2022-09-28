@@ -1,0 +1,225 @@
+
+
+
+
+      <!-- partial -->
+      <div class="content-wrapper">
+        <div class=" container">
+          <div class=" pb-0">
+            
+            <!-- first row starts here -->
+           
+            <div class="row">
+              <div class="header-right mt-md-2 mt-lg-0 w-100">
+                <div class=" align-items-center d-inline-block">
+                  <a href="transaction">
+                    <p class="m-0 pe-3">Transactional Reports</p>
+                  </a>
+                  <a class="ps-3 me-4">
+                    <p class="m-0">Upcoming Item Launches</p>
+                  </a>
+                </div>
+                <!-- <div class=""  style="display: inline-block;  float: right;">
+                  <button type="button" (click)="backButtonClick()" class=" btn btn-sm btn-success btn-icon-text" style="height:30px">
+                    <i class="mdi mdi-arrow-left"></i> Back</button>
+                </div> -->
+              </div>
+            </div>
+
+            <div class="col-lg-12 grid-margin stretch-card mt-3">
+              <div class="card">
+                <div class="card-body">
+
+                  <div class="mb-3">
+                    <h3 class="d-inline-block"> Upcoming Item Launches </h3>
+                    <!-- <button type="button" class="float-end btn btn-sm btn-primary mt-2 mt-sm-0 btn-icon-text">
+                      <i class="mdi mdi-plus-circle"></i> Add Product </button> -->
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="product-filters">
+                    
+                    <div class="card">
+                      <div class="card-body">
+                    
+                        <div class="row">
+                        <!--   <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="exampleFormControlSelect1"> Date</label>
+                              <input type="text" class="form-control form-control-sm" value="20-06-2022" aria-label="Username" />
+                            </div>
+                          </div>
+                      
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="exampleFormControlSelect1">End Date</label>
+                              <input type="text" class="form-control form-control-sm" value="25-06-2022" aria-label="Username" />
+                            </div>
+                          </div> -->
+
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="exampleFormControlSelect1">Store Name</label>
+                              <input type="text" class="form-control form-control-sm" placeholder="Store Name" />
+                            </div>
+                          </div>
+
+                      <div class="col-md-3">
+                      <div class="form-group">
+                          <label for="exampleFormControlSelect2">Product Categories</label>
+                          <select class="form-control form-control-sm" id="exampleFormControlSelect1">
+                            <option> Select All</option>
+                            <option>Categories2</option>
+                            <option>Categories3</option>
+                            <option>Categories4</option>
+                            <option>Categories5</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect2">Sub Categories</label>
+                            <select class="form-control form-control-sm" id="exampleFormControlSelect1">
+                              <option>Select All</option>
+                              <option>Sub Categories2</option>
+                              <option>Sub Categories3</option>
+                              <option>Sub Categories4</option>
+                              <option>Sub Categories5</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        
+
+
+
+                      
+
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Product Name</label>
+                          <input type="text" class="form-control form-control-sm" placeholder="Select All" aria-label="Username" />
+                        </div>
+                      </div>
+
+
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect3"> SKU Code</label>
+                          <input type="text" class="form-control form-control-sm" placeholder= "SKU Code" aria-label="Username" />
+                        </div>
+                      </div>
+
+                      
+                      <div class="col-md-3">
+                     <label> &nbsp; </label> <br>
+                      <button type="button" class=" btn btn-sm btn-success mt-2 mt-sm-0 btn-icon-text">
+                        <i class="mdi mdi-checkbox-marked-circle-outline"></i> Filter </button>
+                      </div>
+
+                      </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="filter-table-data mt-3">
+                  <div class="table-responsive ">
+                    <table class="table table-bordered table-striped text-sm">
+                      <thead>
+                        <tr>
+                          <th  width="100"> Launch Date</th>
+                          <th  width="90"> SKU <br>Code</th> 
+                          <th> Product Name </th>
+                          <th> Most Similar <br> Product </th>
+                          <th width="100"> Likelihood <br>  Score </th>
+                          <th> Category</th>
+                          <th> Sub Category</th>
+                          <!-- <th> Store Name</th> -->
+
+                         
+                          
+                         
+                        </tr>
+                        <!-- <tr>
+                          <th> <input type="text" class="form-control form-control-sm" > </th>
+                          <th> <input type="text" class="form-control form-control-sm" > </th>
+                          <th> <input type="text" class="form-control form-control-sm" > </th>
+                          <th> <input type="text" class="form-control form-control-sm" > </th>
+                          <th> <input type="text" class="form-control form-control-sm" > </th>
+                          <th> <input type="text" class="form-control form-control-sm" > </th>
+                          
+                        </tr> -->
+                        </thead>
+                        <tbody>
+              
+                          <tr>
+                          <td> 20-09-2022</td>
+                          <td> SN12345</td>
+                          <td> Sony 43inch LED 4K </td>
+                          <td> 
+                            <select class="form-control form-control-sm" id="exampleFormControlSelect1">
+                            <option>Sony 53inch LED 4k</option>
+                            <option>Sony 43inch LED </option>
+                            <option>Sony 43inch LED IPS</option>
+                          </select></td>
+                          <td>  <input type="text" class="form-control form-control-sm"  value="95%" /> </td>
+                          <td> Home Entertainment </td>
+                          <td> TV </td>
+                          <!-- <td> Electonic Store</td> -->
+
+                          
+                        </tr>
+              
+                        <tr>
+                          <td> 20-09-2022</td>
+                          <td> SN45565</td>
+                          <td> Dell Wireleww Mouse 2.5 </td>
+                          <td> 
+                            <select class="form-control form-control-sm" id="exampleFormControlSelect1">
+                            <option>Dell Optical Mouse</option>
+                            <option>Dell wireless Mouse 1.0 </option>
+                            <option>Dell Mouse</option>
+                          </select></td>
+                          <td>  <input type="text" class="form-control form-control-sm"  value="90%" /> </td>
+                          <td> Computer Peripherals </td>
+                          <td> Mouse </td>
+                          <!-- <td> Home Entertainment Store</td> -->
+
+                          
+                        </tr>
+
+                        <tr>
+                          <td> 25-09-2022</td>
+                          <td> SN45675</td>
+                          <td> Dell Laptop Charger </td>
+                          <td> 
+                            <select class="form-control form-control-sm" id="exampleFormControlSelect1">
+                            <option>Compatable Charger</option>
+                            <option>Compatable Charger </option>
+                          </select></td>
+                          <td>  <input type="text" class="form-control form-control-sm"  value="95%" /> </td>
+                          <td> Computer Peripherals </td>
+                          <td> Laptop Chargers </td>
+                          <!-- <td> TV Showroom</td> -->
+                          
+                          
+                        </tr>
+
+                        </tbody>
+                        </table>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+            
+            
+
+          
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>

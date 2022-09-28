@@ -1,0 +1,15 @@
+
+
+
+@font-face {
+    font-family: 'Proxima-Nova-Font';
+    src:url('fonts/Proxima-Nova-Font.woff') format('woff'),
+        url('fonts/Proxima-Nova-Font.woff2') format('woff2'),
+        url('fonts/Proxima-Nova-Font.eot'),
+        url('fonts/Proxima-Nova-Font.eot?#iefix') format('embedded-opentype'),
+        url('fonts/Proxima-Nova-Font.otf') format('truetype');
+
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}

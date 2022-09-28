@@ -1,0 +1,137 @@
+
+
+
+<!-- Navigation-->
+
+<div  class="text-center">
+    <div class="container-fluid">
+        <div class="row w-100">
+            <div class="col-12">
+                <!-- <div id="sidebarCollapse" class="d-inline-block text-white btn-toggle ">
+                    <i class="fas fa-bars text-black text-white"></i>
+                    <span></span>
+                </div> -->
+                <!-- <a> <img src="../../../../assets/images/Bigtap logo_CMYK.png" class="logo-img" width="120" alt="logo" /> </a> -->
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<!-- Masthead-->
+<div class="container-fluid">
+    <div class="">
+
+        <div class="container-padding">
+            <div class="signup-content row ">
+                <div class="signup-form col-md-7  pt-5 text-center">
+                    <a> <img src="../../../../assets/images/autoreplishment-img.png" class="logo-img" width="100%" alt="logo" /> </a>
+                    
+                </div>
+                <div class="signup-form col-md-4  pt-5 text-center">
+
+                    <div  class="text-center">
+                        <div class="container-fluid">
+                            <div class="row w-100">
+                                <div class="col-12">
+                                    <!-- <div id="sidebarCollapse" class="d-inline-block text-white btn-toggle ">
+                                        <i class="fas fa-bars text-black text-white"></i>
+                                        <span></span>
+                                    </div> -->
+                                    <a> <img src="../../../../assets/images/Bigtap logo_CMYK.png" class="logo-img" width="120" alt="logo" /> </a>
+                                </div>
+                    
+                    
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="form-title"> Login </h3>
+                    
+                    
+                    <div class="card">
+						<div class="card-body">
+							<!-- <h4 class="card-title">Login</h4> -->
+
+                            <form class="login-form" [formGroup]="LoginForm" (ngSubmit)="clkSignin()">
+
+                                <!-- <h5> User Login </h5>  -->
+                                <div *ngIf="errorFlag"><mat-error>{{authorizationMessage}}</mat-error></div><br>
+                                <div class="form-group inner-addon mb-1">
+                                    <mat-form-field>
+                                        <!-- <label for="name" class="login-icons" ><i class="fa fa-user"></i></label> -->
+                                        <input matInput type="text" autocomplete="off" name="userName" id="userName" placeholder=" User Name"  [formControl]="LoginForm.controls['userName']">
+                                        <span matPrefix> <i class="fa fa-user"></i> &nbsp; </span>
+                                       <mat-error *ngFor="let validation of validation_messages.userName">
+                                            <span *ngIf="LoginForm.get('userName').hasError(validation.type)">
+                                                {{ validation.message}}
+                                            </span>
+                                        </mat-error>
+
+                                    </mat-form-field>
+        
+                                </div>
+        
+        
+        
+                                <div class="form-group inner-addon">
+                                    <mat-form-field>
+                                        <!-- <label for="name" class="login-icons"><i class="fa fa-key"></i></label> -->
+                                        <input matInput type="password" name="password" id="password" placeholder="Password" [formControl]="LoginForm.controls['password']"/>
+                                        <span matPrefix> <i class="fa fa-key"></i> &nbsp;  </span>
+                                        <mat-error *ngFor="let validation of validation_messages.password">
+                                            <span *ngIf="LoginForm.get('password').hasError(validation.type)">
+                                                {{ validation.message}}
+                                            </span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+        
+        
+                                <!-- <div class="form-check"> -->
+                                    <!-- <input type="checkbox" [formControl]="LoginForm.controls['rememberMe']" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Remember me</label> -->
+                                    <!-- <a href=""> <span class="float-right"><u> Forgot Password? </u></span> </a>
+                                </div> <br> -->
+        
+                                <div class="form-group form-button float-right">
+                                    <button type="submit" name="signup" id="signup" class="btn btn-primary btn-rounded "> 
+                                        <i class="fa fa-sign-in-alt "></i> Login </button>
+                                    <!-- </a> -->
+                                </div>
+        
+        
+                            </form>
+                        </div>
+                        
+                      </div>
+                    
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+<!-- <form class="forms-sample">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control p-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted text-success"><span class="fa fa-info mt-1"></span>  We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control p-input" id="exampleInputPassword1" placeholder="Password">
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form> -->

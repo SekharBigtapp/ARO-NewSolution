@@ -1,0 +1,223 @@
+
+<!-- partial -->
+<div class="content-wrapper">
+  <div class=" container">
+    <div class=" pb-0">
+
+      <!-- first row starts here -->
+      <div class="row">
+        <div class="header-right mt-md-2 mt-lg-0 w-100">
+          <div class=" align-items-center d-inline-block">
+            <a routerLink="/masters">
+              <p class="m-0 pe-3">Master Data Reports</p>
+            </a>
+            <a class="ps-3 me-4">
+              <p class="m-0">Add New Supplier</p>
+            </a>
+          </div>
+          <div class="" style="display: inline-block;  float: right;">
+            <button type="button" routerLink="/suppliermaster" class=" btn btn-sm btn-success btn-icon-text"
+              style="height:30px">
+              <i class="mdi mdi-arrow-left"></i> Back</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row grid-margin stretch-card mt-3">
+        <form [formGroup]="addNewSupplierForm" (ngSubmit)="onNewSupplierSubmit()">
+          <div class="card">
+            <div class="card-body">
+
+              <div class="mb-3">
+                <h3 class="d-inline-block"> Add New Supplier </h3>
+                <button type="submit" class="float-end btn btn-sm btn-primary mt-2 mt-sm-0 btn-icon-text">
+                  <i class="mdi mdi-plus-circle"></i> Submit </button>
+              </div>
+              <div class="clearfix"></div>
+
+           
+
+
+            <div class="row">
+              <div class="col-md-6 grid-margin ">
+                <div class="card mb-3">
+                  <div class="card-header">
+                    Supplier Details
+                  </div>
+                  <div class="card-body">
+                    
+                  <div class="form-group">
+                    <mat-form-field>
+                      <!-- <label for="exampleInputUsername1">Supplier Id</label> -->
+                      <input type="text" matInput class="form-control" id="Supplier_Key" formControlName="Supplier_Key" placeholder="Supplier Key">
+                      <mat-error *ngFor = "let validation of validation_messages.Supplier_Key">
+                          <span *ngIf ="addNewSupplierForm.get('Supplier_Key').hasError(validation.type)">
+                            {{validation.message}}
+                          </span>
+                          
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  
+                  <div class="form-group">
+                  <mat-form-field>
+                    <!-- <label for="exampleInputUsername1">Supplier Name</label> -->
+                    <input type="text" matInput class="form-control" id="Supplier_Name" formControlName="Supplier_Name" placeholder="Supplier Name">
+                    <mat-error *ngFor = "let validation of validation_messages.Supplier_Name">
+                      <span *ngIf ="addNewSupplierForm.get('Supplier_Name').hasError(validation.type)">
+                        {{validation.message}}
+                      </span>
+                  </mat-error>
+                  </mat-form-field>
+                </div>
+
+                  <div class="form-group">
+                  <mat-form-field>
+                    <!-- <label for="exampleInputUsername1">Supplier Email Id</label> -->
+                    <input type="text" matInput class="form-control" id="Supplier_Email_ID" formControlName="Supplier_Email_ID" placeholder="supplier Email_id">
+                    <mat-error *ngFor="let validation of validation_messages.Supplier_Email_ID">
+                      <span *ngIf ="addNewSupplierForm.get('Supplier_Email_ID').hasError(validation.type)">
+                        {{validation.message}} 
+                      </span>
+
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                  <div class="form-group">
+                  <mat-form-field>
+                    <!-- <label for="exampleInputUsername1">Supplier Contact Details</label> -->
+                    <input type="text" matInput class="form-control" id="Supplier_Contact_Details"formControlName="Supplier_Contact_Details" placeholder="Supplier Contact Details">
+                    <mat-error *ngFor="let validation of validation_messages.Supplier_Contact_Details">
+                      <span *ngIf ="addNewSupplierForm.get('Supplier_Contact_Details').hasError(validation.type)">
+                        {{validation.message}} 
+                      </span>
+
+                    </mat-error>
+                  </mat-form-field>
+                  </div>
+                 
+                  </div>
+                </div>
+
+                <!-- <div class="card mb-3">
+                  <div class="card-header">
+                    Supplier Status
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                    <mat-form-field>
+                      <label for="exampleFormControlSelect1">Supplier Status</label>
+                      
+                      <mat-select  id="Status"formControlName="Status">
+                        <mat-option value="1"> Active </mat-option>
+                        <mat-option value="0"> In Active </mat-option>
+                      </mat-select>
+                      <mat-error *ngFor="let validation of validation_messages.Status">
+                        <span *ngIf ="addNewSupplierForm.get('Status').hasError(validation.type)">
+                          {{validation.message}} 
+                        </span>
+                        </mat-error>
+                    </mat-form-field>
+                    </div>
+                  </div>
+                  
+                </div> -->
+
+              </div>
+
+
+              <div class="col-md-6 grid-margin ">
+                  
+
+                  <div class="card mb-3">
+                    <div class="card-header">
+                      Supplider Address
+                    </div>
+                    <div class="card-body">
+                      
+                      <div class="form-group">
+                        <mat-form-field>
+                        <!-- <label for="exampleInputUsername1">Country Name</label> -->
+                        <input type="text" matInput class="form-control" id="Country_Name"formControlName="Country_Name" placeholder="Supplier_Country">
+                        <mat-error *ngFor="let validation of validation_messages.Country_Name">
+                          <span *ngIf ="addNewSupplierForm.get('Country_Name').hasError(validation.type)">
+                            {{validation.message}} 
+                          </span>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                      <div class="form-group">
+                        <mat-form-field>
+                        <!-- <label for="exampleInputUsername1">State Name</label> -->
+                        <input type="text" matInput class="form-control" id="Supplier_Region" formControlName="Supplier_Region" placeholder="Supplier_Region">
+                        
+                        <mat-error *ngFor="let validation of validation_messages.Supplier_Region">
+                          <span *ngIf ="addNewSupplierForm.get('Supplier_Region').hasError(validation.type)">
+                            {{validation.message}} 
+                          </span>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                     
+
+                      <div class="form-group">
+                        <mat-form-field>
+                        <!-- <label for="exampleInputUsername1">City Name</label> -->
+                        <input type="text" matInput class="form-control" id="City_Name"formControlName="City_Name" placeholder="Supplier_City">
+                        <mat-error *ngFor="let validation of validation_messages.City_Name">
+                          <span *ngIf ="addNewSupplierForm.get('City_Name').hasError(validation.type)">
+                            {{validation.message}} 
+                          </span>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+                      <mat-form-field>
+                      <!-- <label for="exampleInputUsername1">City Name</label> -->
+                      <input type="text" matInput class="form-control" id="relationship_end_dt"formControlName="relationship_end_dt" placeholder="Relationship End Date">
+                      
+                    </mat-form-field>
+                  </div>
+
+
+
+                  <div class="form-group">
+                    <mat-form-field>
+                    <input type="text" matInput class="form-control" id="Green_Score"formControlName="Green_Score" placeholder="Green Score">
+                   
+                  </mat-form-field>
+                </div>
+
+                    </div>
+                    
+                  </div>
+
+
+
+            </div>
+
+            <div class="mb-3">
+              <!-- <h3 class="d-inline-block"> Products Master </h3> -->
+              <button type="submit" class="float-end btn btn-sm btn-primary mt-2 mt-sm-0 btn-icon-text">
+                <i class="mdi mdi-plus-circle"></i> Submit </button>
+            </div>
+
+            </div>
+
+              </div>
+          </div>
+      </form>
+
+
+  
+      </div>
+
+
+  </div>
+</div>
+</div>
+

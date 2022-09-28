@@ -1,0 +1,217 @@
+<div class="content-wrapper">
+  <div class=" container">
+    <div class=" pb-0">
+
+      <!-- first row starts here -->
+      <div class="row">
+        <div class="header-right mt-md-2 mt-lg-0 w-100">
+          <div class=" align-items-center d-inline-block">
+            <a routerLink="/masters">
+              <p class="m-0 pe-3">Master Data Reports</p>
+            </a>
+            <a class="ps-3 me-4">
+              <p class="m-0">Add New Store Master</p>
+            </a>
+          </div>
+          <div class="" style="display: inline-block;  float: right;">
+            <button type="button" routerLink="/storemaster" class=" btn btn-sm btn-success btn-icon-text"
+              style="height:30px">
+              <i class="mdi mdi-arrow-left"></i> Back</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row grid-margin stretch-card mt-3">
+        <form [formGroup]="addstoreMasterform" (ngSubmit)="onAddStoreMasterSubmit()" >
+          <div class="card">
+            <div class="card-body">
+
+              <div class="mb-3">
+                <h3 class="d-inline-block"> Add New Store Master </h3> 
+                <button type="submit" class="float-end btn btn-sm btn-primary mt-2 mt-sm-0 btn-icon-text">
+                  <i class="mdi mdi-plus-circle"></i> Submit</button>                 
+              </div>
+              <div class="clearfix"></div>
+
+              <div class="row">
+                  <div class="col-md-6 grid-margin ">
+                  <div class="card mb-3">
+                      <div class="card-header">
+                        Store Information
+                      </div>
+                      <div class="card-body">
+                          <div class="form-group">
+                            <mat-form-field>
+                              <input type="text" matInput class="form-control" id="Store_Key" formControlName="Store_Key" placeholder="Store Id">
+                              <mat-error *ngFor = "let validation of validation_messages.Store_Key">
+                                <span *ngIf ="addstoreMasterform.get('Store_Key').hasError(validation.type)">
+                                  {{validation.message}}
+                                </span>
+                                
+                            </mat-error>
+                            </mat-form-field>
+                              <!-- <label for="exampleInputUsername1">Store Id</label> -->
+                              
+                          </div>
+                          <div class="form-group">
+                            <mat-form-field>
+                              <input type="text" matInput class="form-control" id="Store_Name" formControlName="Store_Name" placeholder="Store Name">
+                              <mat-error *ngFor = "let validation of validation_messages.Store_Name">
+                                <span *ngIf ="addstoreMasterform.get('Store_Name').hasError(validation.type)">
+                                  {{validation.message}}
+                                </span>
+                                
+                            </mat-error>
+
+                            </mat-form-field>
+                              <!-- <label for="exampleInputUsername1">Store Name</label> -->
+                              
+                          </div>
+                          <div class="form-group">
+                            <mat-form-field>
+                              <input type="text" matInput class="form-control" id="store_manager" formControlName="store_manager" placeholder="Store Manager">
+                            </mat-form-field>
+                              <!-- <label for="exampleInputUsername1">Store Name</label> -->                              
+                          </div>
+                          <div class="form-group">
+                            <mat-form-field>
+                              <input type="text" matInput class="form-control" id="manager_email" formControlName="manager_email" placeholder="Manager Email">
+                            </mat-form-field>
+                              <!-- <label for="exampleInputUsername1">Store Name</label> -->                              
+                          </div>
+                          <div class="form-group">
+                            <mat-form-field>
+                              <input type="text" matInput class="form-control" id="store_type" formControlName="store_type" placeholder="Store type">
+                              </mat-form-field>
+                              <!-- <label for="exampleInputUsername1">Store Name</label> -->
+                          </div>
+                          <div class="form-group">
+                            <mat-form-field>
+                              <input type="text" matInput class="form-control" id="store_sqft" formControlName="store_sqft" placeholder="Store Sqft">
+                              </mat-form-field>
+                              <!-- <label for="exampleInputUsername1">Store Name</label> -->
+                          </div>
+                          <div class="form-group">
+                            <mat-form-field>
+                              <input type="text" matInput class="form-control" id="catchment_area" formControlName="catchment_area" placeholder="Catchment Area">
+                            </mat-form-field>
+                              <!-- <label for="exampleInputUsername1">Store Name</label> -->
+                          </div>
+
+                          <div class="form-group">
+                            <mat-form-field>
+                              <input type="text" matInput class="form-control" id="affluency_rtng" formControlName="affluency_rtng" placeholder="Affluency Rating">
+                            </mat-form-field>
+                              <!-- <label for="exampleInputUsername1">Store Name</label> -->
+                          </div>
+                          
+
+                      </div>
+                     
+                    </div>
+
+                  
+                  </div>
+  
+                  <div class="col-md-6 grid-margin">
+
+                    
+
+                    <div class="card mb-3">
+                      <div class="card-header">
+                       
+                        Store Address
+                      </div>
+                      <div class="card-body">
+                        <div class="form-group">
+                          <!-- <label for="exampleTextarea1">Country</label> -->
+                          <mat-form-field>
+                          <input type="text" matInput class="form-control" id="Store_Country" formControlName="Store_Country" placeholder="Store Country">
+                          <mat-error *ngFor = "let validation of validation_messages.Store_Country">
+                            <span *ngIf ="addstoreMasterform.get('Store_Country').hasError(validation.type)">
+                              {{validation.message}}
+                             </span>
+                            
+                        </mat-error>
+                        </mat-form-field>
+                        </div>
+                      <div class="form-group">
+                          <mat-form-field>
+                            <input type="text" matInput class="form-control" id="Store_State" formControlName="Store_State" placeholder="Store Region">
+                            <mat-error *ngFor = "let validation of validation_messages.Store_State">
+                              <span *ngIf ="addstoreMasterform.get('Store_State').hasError(validation.type)">
+                                {{validation.message}}
+                               </span>
+                              
+                          </mat-error>
+                          </mat-form-field>
+                            <!-- <label for="exampleInputUsername1">State</label> -->
+                            
+                        </div>
+                        <div class="form-group">
+                          <mat-form-field>
+                            <input type="text" matInput class="form-control" id="Store_City" formControlName="Store_City" placeholder="Store City">
+                            <mat-error *ngFor = "let validation of validation_messages.Store_City">
+                              <span *ngIf ="addstoreMasterform.get('Store_City').hasError(validation.type)">
+                                {{validation.message}}
+                               </span>
+                              
+                          </mat-error>
+                          </mat-form-field>
+                            <!-- <label for="exampleInputUsername1">City</label> -->
+                            
+                        </div>                       
+                        
+                      <div class="form-group">
+                          <!-- <label for="exampleInputUsername1">Store Latitude</label> -->
+                          <mat-form-field>
+                          <input type="text" matInput class="form-control" id="Store_Lattitude" formControlName="Store_Lattitude" placeholder="Store Latitude">
+                          <mat-error *ngFor = "let validation of validation_messages.Store_Lattitude">
+                            <span *ngIf ="addstoreMasterform.get('Store_Lattitude').hasError(validation.type)">
+                              {{validation.message}}
+                             </span>
+                            
+                        </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="form-group">
+                        <!-- <label for="exampleInputUsername1">Store Longitude</label> -->
+                        <mat-form-field>
+                          <input type="text" matInput class="form-control" id="Store_Longitude" formControlName="Store_Longitude" placeholder="Store Longitude">
+                          <mat-error *ngFor = "let validation of validation_messages.Store_Longitude">
+                            <span *ngIf ="addstoreMasterform.get('Store_Longitude').hasError(validation.type)">
+                              {{validation.message}}
+                             </span>
+                            
+                        </mat-error>
+                        </mat-form-field>                        
+                    </div>
+                        
+                      </div>
+                    </div>  
+  
+  
+                   </div>
+       
+                   
+                </div>
+  
+  
+
+
+                <button type="submit" class="float-end btn btn-sm btn-primary mt-2 mt-sm-0 btn-icon-text">
+                  <i class="mdi mdi-plus-circle"></i> Submit</button>
+
+              </div>
+          </div>
+          
+      </form>
+
+
+  
+      </div>
+
+
+  </div>
+</div>
+</div>

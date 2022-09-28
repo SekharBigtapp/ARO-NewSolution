@@ -1,0 +1,328 @@
+<!-- partial -->
+<div class="content-wrapper">
+  <div class=" container">
+    <div class=" pb-0">
+
+      <!-- first row starts here -->
+
+      <div class="row">
+        <div class="header-right d-flex  mt-md-2 mt-lg-0 w-100">
+          <div class="d-flex align-items-center">
+            <a href="#">
+              <p class="m-0 pe-3">System Configuration</p>
+            </a>
+            <a class="ps-3 me-4" href="#">
+              <p class="m-0">System Job Schedules</p>
+            </a>
+          </div>
+          <!-- <div class="float-right" style="flex-direction: row-reverse;">
+              <button type="button" class=" btn btn-primary mt-2 mt-sm-0 btn-icon-text">
+                <i class="mdi mdi-plus-circle"></i> Add Prodcut </button>
+            </div> -->
+        </div>
+      </div>
+
+      <div class="col-lg-12 p-0 grid-margin stretch-card mt-3">
+        <div class="card">
+          <div class="card-body pb-5">
+
+            <div class="mb-3">
+              <h3 class="d-inline-block"> System Job Schedules </h3>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#tabs-2" role="tab">Job Configuration </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " data-toggle="tab" href="#tabs-1" role="tab"> Job Run History </a>
+              </li>
+              
+
+            </ul>
+
+
+
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane " id="tabs-1" role="tabpanel">
+                <div class="clearfix"></div>
+                <div class="table-responsive">
+                  <table mat-table [dataSource]="jobSchedulers" matSort class="mat-elevation-z8 mat-datagrid  table-bordered w-100">
+
+                    <ng-container matColumnDef="Job_Name">
+                      <th mat-header-cell *matHeaderCellDef scope="col">
+                        <label mat-sort-header>
+                          Job Name
+                        </label>
+                      </th>
+                      <td mat-cell *matCellDef="let element"> {{element.Job_Name}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Job_Start">
+                      <th mat-header-cell *matHeaderCellDef scope="col">
+                        <label mat-sort-header>
+                          Job Start
+                        </label>
+                      </th>
+                      <td mat-cell *matCellDef="let element"> {{element.Job_Start}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Job_End">
+                      <th mat-header-cell *matHeaderCellDef scope="col">
+                        <label mat-sort-header>
+                          Job End
+                        </label>
+                      </th>
+                      <td mat-cell *matCellDef="let element"> {{element.Job_End}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Status">
+                      <th mat-header-cell *matHeaderCellDef scope="col">
+                        <label mat-sort-header>
+                          Status
+                        </label>
+                      </th>
+                      <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Actions">
+                      <th mat-header-cell *matHeaderCellDef scope="col">
+                        <label>
+                          Actions
+                        </label>
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        <!-- <button class="btn btn-sm btn-danger d-inline-block">Restart</button> -->
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+                  </table>
+                  <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50]" aria-label="Select page">
+                  </mat-paginator>
+                </div>
+              </div>
+
+              <div class="tab-pane active" id="tabs-2" role="tabpanel">
+
+                <div class="job-list">
+                  <div class="">
+                    <div class="row mt-3">
+                      <label for="exampleFormControlSelect3" class="col-md-2 form-inline pt-3">Job Name </label>
+                      <div class="col-md-4">
+                      <select  class="form-control form-control-sm " formControlName="JobTitle"
+                        id="exampleFormControlSelect1">
+                        <option value="Hyper-V Backup Job">Hyper-V Backup Job </option>
+                        <option value="VMware - Biz dev server">VMware - Biz dev server </option>
+
+                      </select>
+                  </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="left-tabs pt-5 pl-3 pb-5" role="tabpanel">
+                  <ul class="nav nav-tabs nav-tabs-left" role="tablist">
+                    <li role="presentation" class="nav-item">
+                      <a class="nav-link" href="#tab-1" aria-controls="tab-1" role="tab" data-toggle="tab"
+                        aria-selected="false">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1"
+                            value="option1" /> Daily </label>
+                      </a>
+                    </li>
+                    <li role="presentation" class="nav-item">
+                      <a class="nav-link" href="#tab-2" aria-controls="tab-2" role="tab" data-toggle="tab">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2"
+                            value="option2" /> Weekly </label>
+                      </a>
+                    </li>
+                    <li role="presentation" class="nav-item">
+                      <a class="nav-link" href="#tab-3" aria-controls="tab-3" role="tab" data-toggle="tab">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3"
+                            value="option3" /> Monthly </label>
+                      </a>
+                    </li>
+
+                  </ul>
+                  <div class="tab-content">
+
+                    <div class="tab-pane active" id="tab-1" role="tabpanel">
+
+                      <form [formGroup]="dailyForm" (ngSubmit)="onDailyFormSubmit()">
+                        <div class="row">
+                          <div class="col-12">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1"
+                                checked value="option1" /> &nbsp; Every </label> &nbsp;
+                            <input type="text" formControlName="noOfDays" class="form-control"
+                              style="width: 50px; display: inline-block; padding: 3px 10px; height: 34px;"
+                              placeholder="dd" (keypress)="onKeyPress($event)" minlength="1" maxlength="2" readonly />
+                            Day's &nbsp;
+                            <input type="time" class="form-control" formControlName="time"
+                              style="width: 150px; display: inline-block; padding: 3px 10px; height: 34px;" required/>
+                          </div>
+                        </div> <br> <br>
+                        <div class="pb-5"> <button type="submit" class="btn btn-primary " [disabled]="!dailyForm.valid"> Save </button> </div>
+                      </form>
+                    </div>
+
+
+                    <div class="tab-pane" id="tab-2" role="tabpanel">
+                      <form [formGroup]="weeklyForm" (ngSubmit)="onWeeklyFormSubmit()">
+                        <div class="row">
+                          <div class="col-12">
+                            <h6 style="margin-left: -20px;">
+                              <span> Recur every </span> &nbsp; <input type="text" class="form-control"
+                                formControlName="date" placeholder="dd" (keypress)="onKeyPress($event)" minlength="1"
+                                maxlength="2" readonly
+                                style="width: 50px; display: inline-block; padding: 3px 10px; height: 34px;" />
+                              &nbsp; Week &nbsp;
+                              <input type="time" class="form-control" formControlName="time"
+                                style="width: 150px; display: inline-block; padding: 3px 10px; height: 34px;" required/>
+                            </h6>
+
+                            <div class="row">
+                              <div class="col-md-3 mb-3">
+                                <label class="form-check-label">
+                                  <input type="radio" class="form-check-input" name="weekDay" formControlName="weekDay"
+                                    value="Sunday" required/> Sunday </label>
+                              </div>
+                              <div class="col-md-3">
+                                <label class="form-check-label">
+                                  <input type="radio" class="form-check-input" name="weekDay" formControlName="weekDay"
+                                    value="Monday" required/> Monday </label>
+                              </div>
+                              <div class="col-md-3">
+                                <label class="form-check-label">
+                                  <input type="radio" class="form-check-input" name="weekDay" formControlName="weekDay"
+                                    value="Tuesday" required/> Tuesday </label>
+                              </div>
+                              <div class="col-md-3">
+                                <label class="form-check-label">
+                                  <input type="radio" class="form-check-input" name="weekDay" formControlName="weekDay"
+                                    value="Wednesday" required/> Wednesday </label>
+                              </div>
+                              <div class="col-md-3 ">
+                                <label class="form-check-label">
+                                  <input type="radio" class="form-check-input" name="weekDay" formControlName="weekDay"
+                                    value="Thursday" required/> Thursday </label>
+                              </div>
+                              <div class="col-md-3">
+                                <label class="form-check-label">
+                                  <input type="radio" class="form-check-input" name="weekDay" formControlName="weekDay"
+                                    value="Friday" required/> Friday </label>
+                              </div>
+                              <div class="col-md-3">
+                                <label class="form-check-label">
+                                  <input type="radio" class="form-check-input" name="weekDay" formControlName="weekDay"
+                                    value="Saturday" required/> Saturday </label>
+                              </div>
+                            </div>
+                          </div> <br> <br>
+                        </div>
+                        <div class="pb-5"> <button type="submit" class="btn btn-primary mt-5" [disabled]="!weeklyForm.valid"> Save </button> </div>
+                      </form>
+                    </div>
+
+
+                    <div class="tab-pane" id="tab-3" role="tabpanel">
+                      <form [formGroup]="monthlyForm" (ngSubmit)="onMonthlyFormSubmit()">
+                        <div class="row">
+                          <div class="col-12">
+                            <input type="radio" class="form-check-input mt-2" id="optionsRadios2" checked
+                              value="option1" /> Day &nbsp; &nbsp;
+                            <input type="number" class="form-control" placeholder="dd" (keypress)="onKeyPress($event)"
+                              min="1" max="31" required
+                              style="width: 60px; display: inline-block; padding: 3px 10px; height: 34px;"
+                              formControlName="date" />&nbsp;
+                            <input type="time" class="form-control"
+                              style="width: 150px; display: inline-block; padding: 3px 10px; height: 34px;"
+                              formControlName="time" required/> &nbsp; of every &nbsp;
+                            <input type="text" class="form-control" (keypress)="onKeyPress($event)" minlength="1"
+                              maxlength="2" style="width: 50px; display: inline-block; padding: 3px 10px; height: 34px;"
+                              formControlName="monthCount" placeholder="mm" readonly />
+                            Month(s)
+                          </div>
+                        </div>
+                        <div class="pb-5"> <button type="submit" class="btn btn-primary mt-5" [disabled]="!monthlyForm.valid"> Save </button> </div>
+                      </form>
+                    </div><br> <br>
+
+                  </div>
+                </div>
+                <!-- <div class="pb-5"> <button type="button" class="btn btn-primary offset-md-2"> Save </button> </div> -->
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+
+
+<!-- <thead>
+  <tr>
+    <th>Job Name </th>
+    <th>Job Stat</th>
+    <th>Job end</th>
+    <th>Status </th>
+    <th>Actions</th>
+  </tr>
+  <tr>
+    <th> <input type="text" class="form-control form-control-sm"> </th>
+    <th> <input type="text" class="form-control form-control-sm"> </th>
+    <th> <input type="text" class="form-control form-control-sm"> </th>
+    <th> <input type="text" class="form-control form-control-sm"> </th>
+    <th> <input type="text" class="form-control form-control-sm"> </th>
+
+
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td> Hyper-V Backup Job</td>
+    <td> 21-06-2022 23:55:59</td>
+    <td> 21-06-2022 11:55:59</td>
+    <td> <i class="mdi mdi-check-circle-outline text-success"> </i> Success</td>
+    <td> <span class="btn btn-sm btn-danger d-inline-block"> Restart </span></td>
+  </tr>
+
+  <tr>
+    <td> VMware - Biz dev server</td>
+    <td> 22-06-2022 1:30:00</td>
+    <td> 22-06-2022 3:00:00</td>
+    <td> <i class="mdi mdi-check-circle-outline text-success"> </i> Success</td>
+    <td> <span class="btn btn-sm btn-danger d-inline-block"> Restart </span></td>
+  </tr>
+
+  <tr>
+    <td> Hyper-V Backup Job</td>
+    <td> 22-06-2022 23:55:59</td>
+    <td> 22-06-2022 11:55:59</td>
+    <td> <i class="mdi mdi-check-circle-outline text-success"> </i> Success</td>
+    <td> <span class="btn btn-sm btn-danger d-inline-block"> Restart </span></td>
+  </tr>
+  <tr>
+    <td> Hyper-V Backup Job</td>
+    <td> 23-06-2022 23:55:59</td>
+    <td> 23-06-2022 11:55:59</td>
+    <td> <i class="mdi mdi-check-circle-outline text-warning"> </i> Pending</td>
+    <td> <span class="btn btn-sm btn-danger d-inline-block"> Restart </span></td>
+  </tr>
+
+</tbody> -->

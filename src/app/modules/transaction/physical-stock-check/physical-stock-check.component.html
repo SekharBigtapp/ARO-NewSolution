@@ -1,0 +1,288 @@
+<!-- partial -->
+<div class="content-wrapper">
+  <div class="container">
+    <div class=" pb-0">
+
+
+
+      <div class="row">
+        <div class="header-right mt-md-2 mt-lg-0 w-100">
+          <div class=" align-items-center d-inline-block">
+            <a href="transaction">
+              <p class="m-0 pe-3">Transactional Reports</p>
+            </a>
+            <a class="ps-3 me-4">
+              <p class="m-0">Physical Stock Check Report</p>
+            </a>
+          </div>
+          <div class="" style="display: inline-block;  float: right;">
+            <button type="button" (click)="backButtonClick()" class=" btn btn-sm btn-success btn-icon-text"
+              style="height:30px">
+              <i class="mdi mdi-arrow-left"></i> Back</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-12 grid-margin stretch-card mt-3">
+        <div class="card">
+          <div class="card-body">
+
+            <div class="mb-3">
+              <h3 class="d-inline-block"> Physical Stock Check </h3>
+              <!-- <button type="button" class="float-end btn btn-sm btn-primary mt-2 mt-sm-0 btn-icon-text">
+                  <i class="mdi mdi-plus-circle"></i> Add Store </button> -->
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="product-filters">
+              <form [formGroup]="physicalStockForm" (ngSubmit)="onPhysicalStockSubmit()">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <!-- <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect3">Store ID</label>
+                          <input type="text" class="form-control form-control-sm" placeholder="Store ID"
+                            aria-label="storeID" formControlName="storeID" />
+                          <select class="form-control form-control-sm" id="exampleFormControlSelect1"
+                            formControlName="storeID">
+                            <option>1 </option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+
+                          </select>
+
+                        </div>
+                      </div> -->
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <mat-form-field class="pt-2">
+                            <input matInput [matDatepicker]="picker" [max]="date" formControlName="date"
+                              placeholder="Choose a date" />
+                            <mat-datepicker-toggle matSuffix  [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect3">Store Name</label>
+                          <select class="form-control form-control-sm" id="exampleFormControlSelect1"
+                            formControlName="storeName">
+                            <option *ngFor="let store of storeNameList" [value]="store.Store_Name">{{store.Store_Name}}</option>
+                          </select>
+                          <!-- <select class="form-control form-control-sm" id="exampleFormControlSelect1"
+                            formControlName="storeName">
+                            <option value="Electonic Store"> Electonic Store</option>
+                            <option value="Home Entertainment Store"> Home Entertainment Store</option>
+                            <option value="Hatta Electronic Showroom"> Hatta Electronic Showroom</option>
+                            <option value="TV showroom"> TV showroom</option>
+                            <option value="Jebel Electronic Showroom"> Jebel Electronic Showroom</option>
+                          </select> -->
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect3">SKU Code</label>
+                          <input type="text" class="form-control form-control-sm" placeholder="SKU Code"
+                            aria-label="SKUCode" formControlName="SKU_ID"  />
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect3">Product Name</label>
+                          <select class="form-control form-control-sm" formControlName="productName">
+                            <option *ngFor="let product of productNameList" [value]="product.Product_Name">{{product.Product_Name}}</option>
+                            <!-- <option value="Zoggs Junior Character Batman Goggle Yellow/Black">Zoggs Junior Character
+                              Batman Goggle Yellow/Black</option>
+                            <option value="Legami Beach Towel - Panda">Legami Beach Towel - Panda</option>
+                            <option value="Sunny Life Swimming Cap Unicorn">Sunny Life Swimming Cap Unicorn</option>
+                            <option value="Just Nature Yoga Block (3 x 6 x 9 inch) - Blue">Just Nature Yoga Block (3 x 6
+                              x 9 inch) - Blue</option>
+                            <option value="Calm Club Sleep Well Relaxation Kit">Calm Club Sleep Well Relaxation Kit
+                            </option>
+                            <option value="Just Nature Double Layer Yoga Mat - Pink/Blue">Just Nature Double Layer Yoga
+                              Mat - Pink/Blue</option>
+                            <option value="Viewsonic M1+ G2 Smart LED Portable Projector">Viewsonic M1+ G2 Smart LED
+                              Portable Projector</option>
+                            <option value="Philips GoPix 1 Mobile Projector">Philips GoPix 1 Mobile Projector</option>
+                            <option value="Nebula Cosmos 4K Laser Projector">Nebula Cosmos 4K Laser Projector</option>
+                            <option value="Sony X85J 55 Inch TV">Sony X85J 55 Inch TV</option>
+                            <option value="SANSUI ES32T1H, 32 - inch HD 720P LED TV ">SANSUI ES32T1H, 32 - inch HD 720P
+                              LED TV </option>
+                            <option value="SAMSUNG 40-inch Class LED Smart FHD TV 1080P">SAMSUNG 40-inch Class LED Smart
+                              FHD TV 1080P</option> -->
+                          </select>
+                          <!-- <input type="text" class="form-control form-control-sm" placeholder="Product Name"
+                            aria-label="productName" formControlName="productName" /> -->
+                        </div>
+                      </div>
+
+
+                      <div class="col-md-3">
+                        
+                        <button type="submit" class=" btn btn-sm btn-success mt-2 mt-sm-0 btn-icon-text text-rigt">
+                          <i class="mdi mdi-checkbox-marked-circle-outline"></i> Filter </button>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="table-responsive">
+              <table mat-table [dataSource]="physicalStockCheckData" *ngIf="!!physicalStockCheckData" matSort
+                class="mat-elevation-z8 w-100">
+                <ng-container matColumnDef="SKU_ID">
+                  <th mat-header-cell *matHeaderCellDef style="width: 250px;" scope="col">
+                    <label mat-sort-header>
+                      SKU ID
+                    </label>
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{element.SKU_ID}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="Product_Name">
+                  <th mat-header-cell *matHeaderCellDef scope="col">
+                    <label mat-sort-header>
+                      Product Name
+                    </label>
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Product_Name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Store_Name">
+                  <th mat-header-cell *matHeaderCellDef scope="col">
+                    <label mat-sort-header>
+                      Store Name
+                    </label>
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Store_Name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Quantity_On_Hand">
+                  <th mat-header-cell *matHeaderCellDef scope="col">
+                    <label mat-sort-header>
+                      Available Qty
+                    </label>
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{element.Quantity_On_Hand}}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Physical_Verified_Quantity">
+                  <th mat-header-cell *matHeaderCellDef scope="col">
+                    <label mat-sort-header>
+                      Physical Verified Qty
+                    </label>
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Physical_Verified_Quantity}}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Variance">
+                  <th mat-header-cell *matHeaderCellDef scope="col">
+                    <label mat-sort-header>
+                      Variance
+                    </label>
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Variance}}
+                  </td>
+                </ng-container>
+                <!-- <ng-container matColumnDef="Actions">
+                  <th mat-header-cell *matHeaderCellDef style="width: 50px;" scope="col">
+                    <label>
+                      Actions
+                    </label>
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <span style="cursor: pointer;">
+                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                      &nbsp;
+                      <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    </span>
+                  </td>
+                </ng-container> -->
+
+                <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+              </table>
+              <mat-paginator [pageSize]="pageSize" [hidden]="!physicalStockCheckData" [pageSizeOptions]="[10, 25, 50]"
+                aria-label="Select page">
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <!-- content-wrapper ends -->
+
+  </div>
+  <!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+
+<!-- <thead>
+  <tr>
+    <th>Product Name</th>
+    <th> SKU ID</th>
+    <th>Store Name</th>
+    <th>Avilable Qty</th>
+    <th width="120">Phicial <br>Verified Qty</th>
+    <th>Actions</th>
+  </tr>
+  <tr>
+    <th> <input type="text" class="form-control form-control-sm"> </th>
+    <th> <input type="text" class="form-control form-control-sm"> </th>
+    <th> <input type="text" class="form-control form-control-sm"> </th>
+    <th> <input type="text" class="form-control form-control-sm"> </th>
+    <th> <input type="text" class="form-control form-control-sm"> </th>
+    <th> <input type="text" class="form-control form-control-sm"> </th>
+
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Sony 43inch LED 4K TV</td>
+    <td> SN12345</td>
+    <td>ABQ Mall</td>
+    <td>109 </td>
+    <td> <input type="text" class="form-control form-control-sm" value="109" /></td>
+    <td> <span class="btn btn-sm btn-success d-inline-block"> Save </span></td>
+  </tr>
+
+  <tr>
+    <td>Philips 5.1 Sourinding Speakers 5000W</td>
+    <td>SN35235</td>
+    <td>Premium Mall</td>
+    <td>50 </td>
+    <td> <input type="text" class="form-control form-control-sm" value="49" /></td>
+    <td> <span class="btn btn-sm btn-primary d-inline-block"> Edit </span></td>
+  </tr>
+
+  <tr>
+    <td>Dell Mouse</td>
+    <td>SN45565</td>
+    <td>BBQ Mall</td>
+    <td>2500 </td>
+    <td> <input type="text" class="form-control form-control-sm" value="2500" /></td>
+    <td> <span class="btn btn-sm btn-primary d-inline-block"> Edit </span></td>
+  </tr>
+
+
+
+
+
+</tbody> -->

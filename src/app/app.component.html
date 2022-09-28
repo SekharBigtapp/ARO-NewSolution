@@ -1,0 +1,18 @@
+ 
+<app-side-navigation  *ngIf="!!this.dataStorage.isUserLoggedIn"> </app-side-navigation> 
+<div class="main-panel">
+        <app-top-bar  *ngIf="!!this.dataStorage.isUserLoggedIn"></app-top-bar>
+        <router-outlet></router-outlet>
+   
+</div>
+<app-footer> </app-footer>
+
+
+<!-- <app-side-navigation > </app-side-navigation> 
+<div class="main-panel">
+        <app-top-bar  ></app-top-bar>
+        <router-outlet></router-outlet>
+   
+</div>
+<app-footer> </app-footer> -->
+
