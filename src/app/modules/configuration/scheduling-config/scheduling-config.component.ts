@@ -27,9 +27,9 @@ export class SchedulingConfigComponent implements OnInit {
 
   ngOnInit(): void {
     this.dailyForm = this.formBuilder.group({
-      noOfDays: ['1'],
-      time: ['', Validators.required],
-      JobTitle:['']
+      //noOfDays: ['1'],
+      time: [''],
+      JobTitle:['',Validators.required]
     });
     this.weeklyForm = this.formBuilder.group({
       // date: ['1'],
@@ -37,9 +37,9 @@ export class SchedulingConfigComponent implements OnInit {
       weekDay: ['', Validators.required]
     });
     this.monthlyForm = this.formBuilder.group({
-      date: ['', Validators.required],
-      time: ['', Validators.required],
-      monthCount: ['1']
+      date: [''],
+      //time: ['', ],
+     // monthCount: ['1']
     });
     this.getJobSchedulers();
   }
@@ -68,7 +68,7 @@ export class SchedulingConfigComponent implements OnInit {
     this.schedulingConfigService.saveJobConfig(Obj).subscribe((response) => {
       console.log(response);
       this.dailyForm.reset();
-      this.dailyForm.controls['noOfDays'].setValue(1);
+      //this.dailyForm.controls['noOfDays'].setValue(1);
     })
   }
 
@@ -85,7 +85,7 @@ export class SchedulingConfigComponent implements OnInit {
     this.schedulingConfigService.saveJobConfig(Obj).subscribe((response) => {
       console.log(response);
       this.weeklyForm.reset();
-      this.weeklyForm.controls['date'].setValue(1);
+      //this.weeklyForm.controls['date'].setValue(1);
     })
   }
 
@@ -102,7 +102,7 @@ export class SchedulingConfigComponent implements OnInit {
     this.schedulingConfigService.saveJobConfig(Obj).subscribe((response) => {
       console.log(response);
       this.monthlyForm.reset();
-      this.monthlyForm.controls['monthCount'].setValue(1);
+      //this.monthlyForm.controls['monthCount'].setValue(1);
     })
   }
 

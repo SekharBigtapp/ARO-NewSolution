@@ -24,7 +24,7 @@ import { PriceMarkdownComponent } from './modules/transaction/price-markdown/pri
 import { PhaseOutItemsComponent } from './modules/transaction/phase-out-items/phase-out-items.component';
 import { NewItemLaunchDateComponent } from './modules/transaction/new-item-launch-date/new-item-launch-date.component';
 import { StoreStoreTransferComponent } from './modules/transaction/store-store-transfer/store-store-transfer.component';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -47,6 +47,8 @@ import { MatInputModule } from '@angular/material/input';
 import { OptimizeReorderComponent } from './modules/dashboard/optimize-reorder/optimize-reorder.component';
 import { SupplierProductCombinationComponent } from './modules/process/supplier-product-combination/supplier-product-combination.component';
 import { LoginComponent } from './modules/auth/login/login.component';
+
+
 
 
 @NgModule({
@@ -101,7 +103,8 @@ import { LoginComponent } from './modules/auth/login/login.component';
     MatFormFieldModule,
     MatInputModule,
     
-    
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]

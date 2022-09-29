@@ -5,7 +5,7 @@ import { BaseHttp } from 'src/app/core/services/baseHttp.service';
   providedIn: 'root'
 })
 export class StoreService extends BaseHttp {
-  searchStoreUrl: string = 'search-store';
+  searchStoreUrl: string = 'reorder-quantity';
   updateQtyUrl: string = 'update-quantity';
   StoreNamesUrl: string = "store-names";
   CategoryNameUrl:string ="categories";

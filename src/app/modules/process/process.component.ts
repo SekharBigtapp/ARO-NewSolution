@@ -14,7 +14,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class ProcessComponent implements OnInit {
   processForm!: FormGroup;
-  displayColumns: string[] = ['Store_Name', 'Category', 'SubCategory', 'Product_name', 'SKU_ID', 'Physical_Stock_on_Hand', 'Forecasted_Volume', 'Transit_Stock', 'Re_Order_Quantity', 'OverriderReorderQty',  'Supplier_Name', 'Actions']
+  displayColumns: string[] = ['store_name', 'prod_cat', 'prod_subcat', 'prod_name', 'sku_id', 'phy_Stock_on_hand', 'demand_forecast', 'transit_stock', 'proposed_qty', 'final_qty', 'Actions']
   processData!: MatTableDataSource<any>;
   overrideReorder!: any;
   pipe = new DatePipe('en-US');
@@ -91,11 +91,11 @@ export class ProcessComponent implements OnInit {
     //alert();
     let obj = {
       "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
-      "Store_Name": "",
-      "Category_Name": this.processForm.value.CategoryName,
-      "Subcategory_Name": this.processForm.value.SubcategoryName,
-      "Product_Name": this.processForm.value.ProductName,
-      "SKU_ID": "",
+      "store_name": "",
+      "prod_cat": this.processForm.value.CategoryName,
+      "prod_subcat": this.processForm.value.SubcategoryName,
+      "prod_name": this.processForm.value.ProductName,
+      "sku_id": "",
       "Blanket_Override": this.blanketOverrideForm.value.BlanketValue   
     }
 
@@ -114,11 +114,11 @@ export class ProcessComponent implements OnInit {
     console.log(this.processForm.value);
     let obj = {
       "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
-      "Store_Name": this.processForm.value.storeName,
-      "Category_Name": this.processForm.value.ProductCateg,
-      "Subcategory_Name": this.processForm.value.SubCategories,
-      "Product_Name": this.processForm.value.ProductName,
-      "SKU_ID": this.processForm.value.SKU_CODE
+      "store_name": this.processForm.value.storeName,
+      "prod_cat": this.processForm.value.ProductCateg,
+      "prod_subcat": this.processForm.value.SubCategories,
+      "prod_name": this.processForm.value.ProductName,
+      "sku_id": this.processForm.value.SKU_CODE
     }
     console.log(obj)
     this.storeService.searchStores(obj).subscribe((response) => {
@@ -138,12 +138,12 @@ export class ProcessComponent implements OnInit {
   }
 
   onProdSave(product: any) {
-    const myFormattedDate = this.pipe.transform(product.Time_key, 'yyyy-MM-dd');
+    const myFormattedDate = this.pipe.transform(product.Date, 'yyyy-MM-dd');
     let prodObj = {
-      "Time_Key": myFormattedDate,
-      "Store_Key": product.Store_Key,
-      "Product_Key": product.Product_Key,
-      "Override_RQ": this.overrideReorder
+      "Date": myFormattedDate,
+      "store_id": product.store_id,
+      "article_id": product.article_id,
+      "final_qty": this.overrideReorder
     }
     console.log(prodObj)
     this.storeService.saveProduct(prodObj).subscribe((response) => {

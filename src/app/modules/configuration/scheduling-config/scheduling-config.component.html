@@ -112,23 +112,33 @@
               <div class="tab-pane active" id="tabs-2" role="tabpanel">
 
                 <div class="job-list">
-                  <div class="">
-                    <div class="row mt-3">
-                      <label for="exampleFormControlSelect3" class="col-md-2 form-inline pt-3">Job Name </label>
-                      <div class="col-md-4">
-                      <select  class="form-control form-control-sm " formControlName="JobTitle"
-                        id="exampleFormControlSelect1">
-                        <option value="Hyper-V Backup Job">Hyper-V Backup Job </option>
-                        <option value="VMware - Biz dev server">VMware - Biz dev server </option>
-                        <option value="Hyper-V Backup Job">Hyper-V  </option>
-                        <option value="VMware - Biz dev server">VMware  </option>
-                        <option value="Hyper-V Backup Job"> Backup Job </option>
-                        <option value="VMware - Biz dev server">Biz dev server </option>
-
-                      </select>
-                  </div>
+                  <form [formGroup]="dailyForm">
+                    <div class="">
+                      <div class="row mt-3">
+                        
+                        <label for="exampleFormControlSelect3" class="col-md-2 form-inline pt-3">Job Name </label>
+                        <div class="col-md-4">
+                        <select  class="form-control form-control-sm " formControlName="JobTitle"
+                          id="exampleFormControlSelect1" required>
+                          <option value="Hyper-V Backup Job">Hyper-V Backup Job </option>
+                          <option value="Hyper-V Backup Job 1">Hyper-V Backup Job 1 </option>
+                          <option value="Hyper-V Backup Job 2">Hyper-V Backup Job 2 </option>
+                          <option value="Hyper-V Backup Job 3">Hyper-V Backup Job 3 </option>
+                          <option value="Hyper-V Backup Job 4">Hyper-V Backup Job 4 </option>
+                          <option value="Hyper-V Backup Job 5">Hyper-V Backup Job 5 </option>
+                          <option value="Hyper-V Backup Job 6">Hyper-V Backup Job 6 </option>
+                          <option value="VMware - Biz dev server 1">VMware - Biz dev server 1</option>
+                          <option value="VMware - Biz dev server 2">VMware - Biz dev server 2</option>
+                          <option value="VMware - Biz dev server 3">VMware - Biz dev server 3</option>
+                          <option value="VMware - Biz dev server 4">VMware - Biz dev server 4</option>
+                          <option value="VMware - Biz dev server 5">VMware - Biz dev server 5</option>
+  
+                        </select>
                     </div>
-                  </div>
+                      </div>
+                    </div>
+                  </form>
+                  
                 </div>
 
                 <div class="left-tabs pt-5 pl-3 pb-5" role="tabpanel">
@@ -162,22 +172,21 @@
                     <div class="tab-pane active" id="tab-1" role="tabpanel">
 
                       <form [formGroup]="dailyForm" (ngSubmit)="onDailyFormSubmit()">
-                        
-                        
                         <div class="row">
                           <div class="col-12">
                             <label class="form-check-label">
                               <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1"
                                 checked value="option1" /> &nbsp; Every </label> &nbsp;
-                            <input type="text" formControlName="noOfDays" class="form-control"
+                            <input type="text"  class="form-control"
                               style="width: 50px; display: inline-block; padding: 3px 10px; height: 34px;"
                               placeholder="dd" (keypress)="onKeyPress($event)" minlength="1" maxlength="2" readonly />
                             Day's &nbsp;
                             <input type="time" class="form-control" formControlName="time"
-                              style="width: 150px; display: inline-block; padding: 3px 10px; height: 34px;" required/>
+                              style="width: 150px; display: inline-block; padding: 3px 10px; height: 34px;" />
                           </div>
                         </div> <br> <br>
-                        <div class="pb-5"> <button type="submit" class="btn btn-primary " [disabled]="!dailyForm.valid"> Save </button> </div>
+                        <div class="pb-5"> <button type="submit" class="btn btn-primary " [disabled]="!dailyForm.valid"> Save </button>
+                         </div>
                       </form>
                     </div>
 
@@ -186,7 +195,7 @@
                       <form [formGroup]="weeklyForm" (ngSubmit)="onWeeklyFormSubmit()">
                         <div class="row">
                           <div class="col-12">
-                            <h6 style="margin-left: -20px;">
+                            <!-- <h6 style="margin-left: -20px;">
                               <span> Recur every </span> &nbsp; <input type="text" class="form-control"
                                 formControlName="date" placeholder="dd" (keypress)="onKeyPress($event)" minlength="1"
                                 maxlength="2" readonly
@@ -194,7 +203,7 @@
                               &nbsp; Week &nbsp;
                               <input type="time" class="form-control" formControlName="time"
                                 style="width: 150px; display: inline-block; padding: 3px 10px; height: 34px;" required/>
-                            </h6>
+                            </h6> -->
 
                             <div class="row">
                               <div class="col-md-3 mb-3">
@@ -247,15 +256,15 @@
                             <input type="radio" class="form-check-input mt-2" id="optionsRadios2" checked
                               value="option1" /> Day &nbsp; &nbsp;
                             <input type="number" class="form-control" placeholder="dd" (keypress)="onKeyPress($event)"
-                              min="1" max="31" required
+                              min="1" max="31" 
                               style="width: 60px; display: inline-block; padding: 3px 10px; height: 34px;"
                               formControlName="date" />&nbsp;
                             <input type="time" class="form-control"
                               style="width: 150px; display: inline-block; padding: 3px 10px; height: 34px;"
-                              formControlName="time" required/> &nbsp; of every &nbsp;
+                               /> &nbsp; of every &nbsp;
                             <input type="text" class="form-control" (keypress)="onKeyPress($event)" minlength="1"
                               maxlength="2" style="width: 50px; display: inline-block; padding: 3px 10px; height: 34px;"
-                              formControlName="monthCount" placeholder="mm" readonly />
+                               placeholder="mm" readonly />
                             Month(s)
                           </div>
                         </div>
