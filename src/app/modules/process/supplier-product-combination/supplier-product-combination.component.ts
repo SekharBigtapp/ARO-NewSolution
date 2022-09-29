@@ -15,7 +15,7 @@ import { SupplierService } from './supplier-product-services';
 export class SupplierProductCombinationComponent implements OnInit {
 
   supplierForm!: FormGroup;
-  displayColumns: string[] = ['Store_Name', 'Supplier_Name', 'SKU_ID', 'Product_Name',   'Category_Name', 'Subcategory_Name',  'Lead_Time', 'Expected_Delivary_Date', 'Actions']
+  displayColumns: string[] = ['store_name', 'supp_name', 'sku_id', 'prod_name','prod_cat','prod_subcat','lead_time','expc_delv_dt', 'Actions']
   supplierData!: MatTableDataSource<any>;
   overrideReorder!: any;
   pipe = new DatePipe('en-US');
@@ -106,13 +106,13 @@ export class SupplierProductCombinationComponent implements OnInit {
   onSupplierSubmit (){
 
     let object = {
-      "Time_Key": this.pipe.transform(this.supplierForm.value.date, 'yyyy-MM-dd'),
-      'Supplier_Name': this.supplierForm.value.SupplierName,
-      'Store_Name' : this.supplierForm.value.StoreName,
-      'Category_Name' : this.supplierForm.value.CategoryName ,
-      'Subcategory_Name' :  this.supplierForm.value.SubcategoryName ,
-      'Product_Name' : this. supplierForm.value.ProductName,
-      'SKU_ID' :  this. supplierForm.value.SKU_CODE ,
+      "Date": this.pipe.transform(this.supplierForm.value.date, 'yyyy-MM-dd'),
+      'supp_name': this.supplierForm.value.SupplierName,
+      'store_name' : this.supplierForm.value.StoreName,
+      'prod_cat' : this.supplierForm.value.CategoryName ,
+      'prod_subcat' :  this.supplierForm.value.SubcategoryName ,
+      'prod_name' : this. supplierForm.value.ProductName,
+      'sku_id' :  this. supplierForm.value.SKU_CODE ,
       
     }
     this.supplierService.supplierSKU(object).subscribe((response) => {

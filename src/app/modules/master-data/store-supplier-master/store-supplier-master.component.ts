@@ -13,7 +13,7 @@ import { storesupplierMasterservice } from './store-supplier-master.service';
 })
 export class StoreSupplierMasterComponent implements OnInit {
   storesupplierMasterform!: FormGroup;
-  displayColumns: string[] = ['Product_Key', 'Product_Name', 'SKU_ID', 'Category_Name', 'Subcategory_Name', 'Store_Key', 'Supplier_Key', 'Supplier_Name', 'City_Name', 'Actions']
+  displayColumns: string[] = ['prod_name', 'sku_id', 'prod_cat', 'prod_subcat', 'store_id', 'store_name','supp_id', 'supp_name', 'supp_city', 'Actions']
   storesupplierMasterData!: MatTableDataSource<any>;
   pageSize = 10;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
@@ -39,14 +39,15 @@ export class StoreSupplierMasterComponent implements OnInit {
 
   onStoreSupplierMasterSubmit() {
     let obj = {
-      "Supplier_Name": this.storesupplierMasterform.value.supplierName,
-      "Supplier_Key": this.storesupplierMasterform.value.supplierID,
-      "Product_Name": this.storesupplierMasterform.value.productname,
-      "Category_Name": this.storesupplierMasterform.value.categoryname     
+      "supplier_name": this.storesupplierMasterform.value.supplierName,
+      "supplier_id": this.storesupplierMasterform.value.supplierID,
+      "product": this.storesupplierMasterform.value.productname,
+      "category": this.storesupplierMasterform.value.categoryname,
+      "store": this.storesupplierMasterform.value.storename     
     }
     this.storesupplierMasterService.getStores(obj).subscribe((response) => {
       console.log(response);
-      this.storesupplierMasterData = new MatTableDataSource(response[0]);
+      this.storesupplierMasterData = new MatTableDataSource(response.data);
       this.storesupplierMasterData.paginator = this.paginator;
       this.storesupplierMasterData.sort = this.sort;
     })

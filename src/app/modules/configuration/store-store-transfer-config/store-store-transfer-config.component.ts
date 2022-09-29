@@ -14,8 +14,8 @@ export class StoreStoreTransferConfigComponent implements OnInit {
   storeTransferForm!: FormGroup;
   DcToStoreTransferForm!: FormGroup;
 
-  displayColumns: string[] = ['Destination_ID', 'Store_Name', 'Distance_to_Destination', 'Source_Type', 'Source_ID', 'Actions']
-  displayColuumsDCStore:string[] = ['Destination_ID', 'Name' , 'Store_Name', 'Distance_to_Destination', 'Source_Type', "Source_ID", 'Actions'  ]
+  displayColumns: string[] = ['src_to_store_id', 'store_name', 'dist_to_destn', 'src_type', 'src_id', 'Actions']
+  displayColuumsDCStore:string[] = ['dc_id', 'dc_name' , 'store_name', 'dist_to_destn', 'src_type', "src_id", 'Actions'  ]
   
   storeTransferData!: MatTableDataSource<any>;
   DcToStoretransfterData!: MatTableDataSource<any>;
@@ -47,9 +47,9 @@ export class StoreStoreTransferConfigComponent implements OnInit {
 
   onStoreTransferSubmit() {
     let obj = {
-      "Store_Name": this.storeTransferForm.value.storeName,
-      "Store_ID": this.storeTransferForm.value.storeID,
-      "Distance_to_Destination": this.storeTransferForm.value.distance
+      "store_name": this.storeTransferForm.value.storeName,
+      "store_id": this.storeTransferForm.value.storeID,
+      "dist_to_destn": this.storeTransferForm.value.distance
     }
     this.storeToStoreTransferService.getStoreTransferData(obj).subscribe((response => {
       // for (let store of response) {
@@ -63,9 +63,9 @@ export class StoreStoreTransferConfigComponent implements OnInit {
 
   onDcToStoreSubmit() {
     let object = {
-      "Name":this.DcToStoreTransferForm.value.dcName,
-      "DC_ID":this.DcToStoreTransferForm.value.dcID,
-      "Distance_to_Destination":this.DcToStoreTransferForm.value.dcDistance,
+      "dc_name":this.DcToStoreTransferForm.value.dcName,
+      "dc_id":this.DcToStoreTransferForm.value.dcID,
+      "dist_to_destn":this.DcToStoreTransferForm.value.dcDistance,
     }
     this.storeToStoreTransferService.DcToStoreTransfer(object).subscribe((response => {
       this.DcToStoretransfterData = new MatTableDataSource(response[0]);

@@ -76,7 +76,7 @@ export class SchedulingConfigComponent implements OnInit {
     console.log(this.weeklyForm.value);
     let Obj = {
       "category": "Weekly",
-      //"jobname": this.jobName,
+      "jobname": this.dailyForm.value.JobTitle,
       // "No_Of_Weeks": this.weeklyForm.value.date,
       // "Time": this.weeklyForm.value.time,
       "weekly_day": this.weeklyForm.value.weekDay
@@ -93,7 +93,7 @@ export class SchedulingConfigComponent implements OnInit {
     console.log(this.monthlyForm.value);
     let Obj = {
       "category": "Monthly",
-      //"jobname": this.jobName,
+      "jobname": this.dailyForm.value.JobTitle,
       "date": "",
       // "Time": this.monthlyForm.value.time,
       // "Time_Duration": this.monthlyForm.value.monthCount

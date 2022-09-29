@@ -102,13 +102,13 @@
             <div class="table-responsive">
               <table mat-table [dataSource]="storeTransferMasterData" *ngIf="!!storeTransferMasterData" matSort
                 class="mat-elevation-z8 w-100">
-                <ng-container matColumnDef="Product_name">
+                <ng-container matColumnDef="prod_name">
                   <th mat-header-cell *matHeaderCellDef style="width: 250px;" scope="col">
                     <label mat-sort-header>
                       Product Name
                     </label>
                   </th>
-                  <td mat-cell *matCellDef="let element"> {{element.Product_name}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.prod_name}} </td>
                 </ng-container>
 
                 <!-- <ng-container matColumnDef="Product_Key">
@@ -121,41 +121,41 @@
                 </ng-container> -->
 
 
-                <ng-container matColumnDef="SKU_ID">
+                <ng-container matColumnDef="sku_id">
                   <th mat-header-cell *matHeaderCellDef scope="col">
                     <label mat-sort-header>
                       SKU ID
                     </label>
                   </th>
-                  <td mat-cell *matCellDef="let element"> {{element.SKU_ID}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.sku_id}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="Store_Name">
+                <ng-container matColumnDef="store_name">
                   <th mat-header-cell *matHeaderCellDef scope="col">
                     <label mat-sort-header>
                       Store Name
                     </label>
                   </th>
-                  <td mat-cell *matCellDef="let element"> {{element.Store_Name}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.store_name}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="Store_ID">
+                <ng-container matColumnDef="store_id">
                   <th mat-header-cell *matHeaderCellDef scope="col">
                     <label mat-sort-header>
-                      Store Name
+                      Store Id
                     </label>
                   </th>
-                  <td mat-cell *matCellDef="let element"> {{element.Store_ID}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.store_id}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="Physical_Stock_on_Hand">
+                <ng-container matColumnDef="phy_stock_on_hand">
                   <th mat-header-cell *matHeaderCellDef scope="col">
                     <label mat-sort-header>
                       Available Qty
                     </label>
                   </th>
                   <td mat-cell *matCellDef="let element">
-                    {{element.Physical_Stock_on_Hand}}
+                    {{element.phy_stock_on_hand}}
                   </td>
                 </ng-container>
 
@@ -166,9 +166,10 @@
                     </label>
                   </th>
                   <td mat-cell *matCellDef="let element">
-                    {{element.transferqty}}
-                  <input  *ngIf="element.editMode" style="width:90px;" placeholder="Qty" formControlName="transferqty"
-                  />
+                  {{element.transferqty}}
+                  <!-- <input  *ngIf="element.editMode" style="width:90px;" placeholder="Qty" formControlName="transferqty"
+                  /> -->
+                  <input  style="width:90px;" placeholder="Qty" id="transferqty" formControlName="transferqty" />
                   </td>
                 </ng-container>
 
@@ -180,14 +181,20 @@
                   </th>
                   <td mat-cell *matCellDef="let element">
                     {{element.Transfer_Qty_Name}}
-                    <select *ngIf="element.editMode" class="form-control form-control-sm" id="exampleFormControlSelect1" formControlName="Store_Name">
+                    <!-- <select *ngIf="element.editMode" class="form-control form-control-sm" id="exampleFormControlSelect1" formControlName="Store_Name">
                      <option *ngFor="let store of storeNameList" [value]="store.Store_Key">{{store.Store_Name}}</option>                      
-                    </select>
+                    </select> -->
+
+                    <select  class="form-control form-control-sm" id="exampleFormControlSelect1" formControlName="Store_Name">
+                      <option *ngFor="let store of storeNameList" [value]="store.store_id">{{store.store_name}}</option>                      
+                     </select>
+
                     <!-- <input  *ngIf="element.editMode" style="width:90px;" placeholder="Qty"
                   /> -->
 
                   </td>
                 </ng-container>
+                
                 
                
                 <ng-container matColumnDef="Actions">

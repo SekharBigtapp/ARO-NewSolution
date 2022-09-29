@@ -14,7 +14,7 @@ import { StoreTransferService } from './store-store-transfer.services';
 })
 export class StoreStoreTransferComponent implements OnInit {
   storeTransferfrom!: FormGroup;
-  displayColumns: string[] = ['Product_name', 'SKU_ID', 'Store_Name', 'Store_ID', 'Physical_Stock_on_Hand','Transfer_Qty','Transfer_to_Store','Actions']
+  displayColumns: string[] = ['prod_name', 'sku_id', 'store_name', 'store_id', 'phy_stock_on_hand','Transfer_Qty','Transfer_to_Store','Actions']
   storeTransferMasterData!: MatTableDataSource<any>;
   pageSize = 10;
   storeNameList: any;
@@ -62,10 +62,10 @@ export class StoreStoreTransferComponent implements OnInit {
   onStoreSupplierMasterSubmit() {
     let obj = {
       "Date": this.pipe.transform(this.storeTransferfrom.value.Time_Key, 'yyyy-MM-dd'),
-      "Store_Name": this.storeTransferfrom.value.Store_Name,
-      "Store_ID": this.storeTransferfrom.value.Store_Key,
-      "SKU_ID": this.storeTransferfrom.value.SKU_ID,
-      "Product_name":this.storeTransferfrom.value.Product_Name,
+      "store_name": this.storeTransferfrom.value.Store_Name,
+      "store_id": this.storeTransferfrom.value.Store_Key,
+      "sku_id": this.storeTransferfrom.value.SKU_ID,
+      "prod_name":this.storeTransferfrom.value.Product_Name,
       // "Product_Key": this.storeTransferfrom.value.Product_Key,
       // "transferqty": "",
       // "Transfer_Qty_Name":this.storeTransferfrom.value.Store_Name,
@@ -81,12 +81,12 @@ export class StoreStoreTransferComponent implements OnInit {
     product.editMode = true;     
   }
   onProdSave(product: any) {   
-    const myFormattedDate = this.pipe.transform(product.Time_Key, 'yyyy-MM-dd');
+    const myFormattedDate = this.pipe.transform(product.date, 'yyyy-MM-dd');
     const Transfer_Qty=this.storeTransferfrom.value.transferqty;
     const Store_Name= this.storeTransferfrom.value.Store_Name;
     let prodObj = {
-      "Time_Key": myFormattedDate,
-      "from_store_key": product.Store_Key,
+      "date": myFormattedDate,
+      "from_store_key": product.store_id,
       "to_store_key":Store_Name,
       "Product_Key": product.Product_Key,      
       "transferqty":Transfer_Qty,      
@@ -98,6 +98,11 @@ export class StoreStoreTransferComponent implements OnInit {
       product.editMode = false;
       this.storeTransferfrom.value.Store_Name= "";      
       this.onStoreSupplierMasterSubmit();
+      
+      // this.qtyClear = document.getElementById('transferqty') as HTMLElement;
+      // this.qtyClear.value="";
+      this.storeTransferfrom.controls['transferqty'].reset();
+      this.storeTransferfrom.controls['Store_Name'].reset();
     });
   } 
   
