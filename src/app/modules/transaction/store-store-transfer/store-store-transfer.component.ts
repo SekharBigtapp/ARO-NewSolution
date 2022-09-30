@@ -88,8 +88,8 @@ export class StoreStoreTransferComponent implements OnInit {
       "date": myFormattedDate,
       "from_store_key": product.store_id,
       "to_store_key":Store_Name,
-      "Product_Key": product.Product_Key,      
-      "transferqty":Transfer_Qty,      
+      "article_id": product.sku_id,      
+      "transferQty":Transfer_Qty,      
     }
     console.log(prodObj)
     this.storetransferservice.saveProduct(prodObj).subscribe((response) => {

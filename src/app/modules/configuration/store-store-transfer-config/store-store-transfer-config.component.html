@@ -208,6 +208,18 @@
                     </th>
                     <td mat-cell *matCellDef="let element"> {{element.src_id}} </td>
                   </ng-container>
+
+                  <ng-container matColumnDef="tfr_avail">
+                    <th mat-header-cell *matHeaderCellDef scope="col">
+                      <label mat-sort-header>
+                        Tfr Avil
+                      </label>
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="ml-5">
+                    <mat-slide-toggle (change)="onDCChange(element,$event)"
+                        [checked]="element.tfr_avail==1?true:false"></mat-slide-toggle>  
+                    </td>
+                  </ng-container>
   
                   <ng-container matColumnDef="Actions">
                     <th mat-header-cell *matHeaderCellDef scope="col">
@@ -218,7 +230,7 @@
                     <td mat-cell *matCellDef="let element">
                       <!-- <span *ngIf="!element.Edit" (click)="OnStoreEdit(element)"
                         class="btn btn-sm btn-primary d-inline-block"> Edit </span> -->
-                      <span (click)="onSave(element)"> <i class="fa fa-floppy-o" aria-hidden="true"></i> </span>
+                      <span (click)="onDCSave(element)"> <i class="fa fa-floppy-o" aria-hidden="true"></i> </span>
                     </td>
                   </ng-container>
   
@@ -310,13 +322,13 @@
                   <table mat-table [dataSource]="storeTransferData" *ngIf="!!storeTransferData" matSort
                     class="mat-elevation-z8 mat-datagrid  table-bordered w-100">
     
-                    <ng-container matColumnDef="src_to_store_id">
+                    <ng-container matColumnDef="destn_store_id">
                       <th mat-header-cell *matHeaderCellDef scope="col">
                         <label mat-sort-header>
                           Store ID
                         </label>
                       </th>
-                      <td mat-cell *matCellDef="let element"> {{element.src_to_store_id}} </td>
+                      <td mat-cell *matCellDef="let element"> {{element.destn_store_id}} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="store_name">
@@ -382,6 +394,20 @@
                       </th>
                       <td mat-cell *matCellDef="let element"> {{element.src_id}} </td>
                     </ng-container>
+
+                    <ng-container matColumnDef="tfr_avail">
+                      <th mat-header-cell *matHeaderCellDef scope="col">
+                        <label mat-sort-header>
+                          Tfr Avil
+                        </label>
+                      </th>
+                      <td mat-cell *matCellDef="let element" class="ml-5">
+                      <mat-slide-toggle (change)="onChange(element,$event)"
+                          [checked]="element.tfr_avail==1?true:false"></mat-slide-toggle>  
+                      </td>
+                    </ng-container>
+
+                    
 
     
                     <ng-container matColumnDef="Actions">

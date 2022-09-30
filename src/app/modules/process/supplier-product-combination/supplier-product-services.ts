@@ -10,7 +10,8 @@ export class SupplierService extends BaseHttp {
     StoreNamesUrl: string = "store-names";
     CategoryNameUrl:string ="categories";
     ProductNameUrl:string = "product-names";
-    SubCategoryNameurl:string = "subcategories"
+    SubCategoryNameurl:string = "subcategories";
+    saveSupplierUrl:string="supplier-exclusion/status";
    
   
     supplierSKU(data: any) {
@@ -26,6 +27,9 @@ export class SupplierService extends BaseHttp {
         return this.post<any>(this.SubCategoryNameurl, sub);
       }
       getProductNames(){
-        return this.get<any>(this.ProductNameUrl)
+        return this.get<any>(this.ProductNameUrl);
+      }
+      saveSupplier(Obj:any){
+        return this.post<any>(this.saveSupplierUrl,Obj);
       }
 }

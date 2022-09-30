@@ -15,7 +15,7 @@ import { SupplierService } from './supplier-product-services';
 export class SupplierProductCombinationComponent implements OnInit {
 
   supplierForm!: FormGroup;
-  displayColumns: string[] = ['store_name', 'supp_name', 'sku_id', 'prod_name','prod_cat','prod_subcat','lead_time','expc_delv_dt', 'Actions']
+  displayColumns: string[] = ['store_name', 'supp_name', 'sku_id', 'prod_name','prod_cat','prod_subcat','lead_time','expc_delv_dt', 'tfr_avail']
   supplierData!: MatTableDataSource<any>;
   overrideReorder!: any;
   pipe = new DatePipe('en-US');
@@ -80,24 +80,14 @@ export class SupplierProductCombinationComponent implements OnInit {
     
   }
 
-  onChange(el: any, event: any) {
-    console.log(el);
-    console.log(event.checked);
-    let obj: any;
-    if (event.checked) {
-      obj = {
-        "id": el.id,
-        //"Distance": el.Distance,
-        "Status": 1
-      }
-    } else {
-      obj = {
-        "id": el.id,
-        //"Distance": el.Distance,
-        "Status": 0
-      }
+  onChange(el: any) {
+   
+    let obj = {
+      "Date": el.Date,
+      "article_id": el.article_id,
+      "tfr_avail": el.tfr_avail
     }
-    this.supplierService.supplierSKU(Object).subscribe((response => {
+    this.supplierService.saveSupplier(obj).subscribe((response => {
       console.log(response);
       this.onSupplierSubmit();
     }))

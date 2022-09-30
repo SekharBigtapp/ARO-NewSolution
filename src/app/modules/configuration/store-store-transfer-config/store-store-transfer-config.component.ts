@@ -14,8 +14,8 @@ export class StoreStoreTransferConfigComponent implements OnInit {
   storeTransferForm!: FormGroup;
   DcToStoreTransferForm!: FormGroup;
 
-  displayColumns: string[] = ['src_to_store_id', 'store_name', 'dist_to_destn', 'src_type', 'src_id', 'Actions']
-  displayColuumsDCStore:string[] = ['dc_id', 'dc_name' , 'store_name', 'dist_to_destn', 'src_type', "src_id", 'Actions'  ]
+  displayColumns: string[] = ['destn_store_id', 'store_name', 'dist_to_destn', 'src_type', 'src_id','tfr_avail', 'Actions']
+  displayColuumsDCStore:string[] = ['dc_id', 'dc_name' , 'store_name', 'dist_to_destn', 'src_type', "src_id",'tfr_avail', 'Actions'  ]
   
   storeTransferData!: MatTableDataSource<any>;
   DcToStoretransfterData!: MatTableDataSource<any>;
@@ -85,25 +85,24 @@ export class StoreStoreTransferConfigComponent implements OnInit {
 
   onChange(el: any, event: any) {
     console.log(el);
-    console.log(event.checked);
-    let obj: any;
+    console.log(event.checked); 
     if (event.checked) {
-      obj = {
-        "id": el.id,
-        "Distance": el.Distance,
-        "Status": 1
-      }
-    } else {
-      obj = {
-        "id": el.id,
-        "Distance": el.Distance,
-        "Status": 0
-      }
+      el.tfr_avail = 1;      
     }
-    this.storeToStoreTransferService.DcToStoreTransfer(Object).subscribe((response => {
-      console.log(response);
-      this.onDcToStoreSubmit();
-    }))
+    else{
+      el.tfr_avail=0;     
+    }    
+  }
+
+  onDCChange(el: any, event: any) {
+    console.log(el);
+    console.log(event.checked); 
+    if (event.checked) {
+      el.tfr_avail = 1;      
+    }
+    else{
+      el.tfr_avail=0;     
+    }    
   }
 
   onActive(el: any, event: any) {
@@ -135,16 +134,39 @@ export class StoreStoreTransferConfigComponent implements OnInit {
     element.Distance = event.target.value;
   }
 
-  onSave(el: any){
-    let obj = {
-      "id": el.id,
-      "Distance": el.Distance,
-      "Store_Store_Transferd_Config": el.Store_Store_Transferd_Config
+  onDCSave(e1: any){
+    let obj={
+    "src_id":e1.src_id,
+    "destn_store_id":e1.destn_store_id,
+    "tfr_avail": e1.tfr_avail
+    }
+    this.storeToStoreTransferService.DCsaveStoreTransfer(obj).subscribe((response => {
+      console.log(response);
+      this.onDcToStoreSubmit();
+    }))
+  }
+  onSave(e1: any){
+    let obj={
+    "src_id":e1.src_id,
+    "destn_store_id":e1.destn_store_id,
+    "tfr_avail": e1.tfr_avail
     }
     this.storeToStoreTransferService.saveStoreTransfer(obj).subscribe((response => {
       console.log(response);
       this.onStoreTransferSubmit();
     }))
   }
+
+  // onSave(el: any){
+  //   let obj = {
+  //     "id": el.id,
+  //     "Distance": el.Distance,
+  //     "Store_Store_Transferd_Config": el.Store_Store_Transferd_Config
+  //   }
+  //   this.storeToStoreTransferService.saveStoreTransfer(obj).subscribe((response => {
+  //     console.log(response);
+  //     this.onStoreTransferSubmit();
+  //   }))
+  // }
 }
 
