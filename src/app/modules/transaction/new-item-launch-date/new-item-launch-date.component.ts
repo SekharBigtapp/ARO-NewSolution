@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { NewLaunchItemService } from './new-item-launch.service';
 
 @Component({
   selector: 'app-new-item-launch-date',
@@ -8,13 +13,68 @@ import { Router } from '@angular/router';
 })
 export class NewItemLaunchDateComponent implements OnInit {
 
+  upcomingItemData!: MatTableDataSource<any>;
+  displayColumns: string[] = ['sku_id', 'prod_name', 'prod_cat', 'prod_subcat', 'most_similar_prods', 'likelihood_scores', 'Actions'];
+  pageSize = 10;
+  @ViewChild(MatPaginator, { static: false }) dataPaginator!: MatPaginator;
+  @ViewChild(MatSort, { static: false }) dataSort!: MatSort;
+  upcomingItemForm!: FormGroup;
+  selecteditem = ''
+
   constructor(
     private router: Router,
+    private newLaunchService: NewLaunchItemService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
+    this.upcomingItemForm = this.formBuilder.group({
+      storeName: [""],
+      productCategories: [""],
+      subCategory: [''],
+      productName: [''],
+      skuCode: [''],
+      Store_Name: [''],
+    });
   }
-  backButtonClick(){
+  backButtonClick() {
     this.router.navigate(['transaction']);
+  }
+
+  similarProduct(element: any, selectedOption: any) {
+    console.log(selectedOption.target.value);
+    let likelihoodList = element.likelihood_scores;
+  //   for(let i=0;i<likelihoodList.length;i++){
+  //     if (selectedOption.target.value == likelihoodList[i].id) {
+  //       console.log(selectedOption,likelihoodList[i].likelihood_score)
+  //           element.likelihoodValue = likelihoodList[i].likelihood_score;
+  //         }
+  // }
+
+    for (let scr of likelihoodList)
+      if (selectedOption.target.value == scr.id) {
+        element.likelihoodValue = scr.likelihood_score;
+      }
+  }
+
+  onUpcomingProduSubmit() {
+    let data = {
+      "product": this.upcomingItemForm.value.productName,
+      "prod_cat": this.upcomingItemForm.value.productCategories,
+      "prod_subcat": this.upcomingItemForm.value.subCategory,
+      "sku_id": this.upcomingItemForm.value.skuCode,
+
+
+    }
+    this.newLaunchService.getNewItemLauchData(data).subscribe((response) => {
+      console.log(response);
+      for (let d of response.data) {
+        d.likelihoodValue = "";
+      }
+      let data = response.data;
+      this.upcomingItemData = new MatTableDataSource(data);
+      this.upcomingItemData.paginator = this.dataPaginator;
+      this.upcomingItemData.sort = this.dataSort;
+    })
   }
 }

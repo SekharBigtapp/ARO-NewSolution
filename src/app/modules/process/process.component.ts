@@ -126,6 +126,7 @@ export class ProcessComponent implements OnInit {
         prod.editMode = false;
       }
       this.processData = new MatTableDataSource(response[0]);
+      debugger;
       console.log(this.processData);
       this.processData.paginator = this.paginator;
       this.processData.sort = this.sort;
@@ -142,7 +143,8 @@ export class ProcessComponent implements OnInit {
     let prodObj = {
       "Date": myFormattedDate,
       "store_id": product.store_id,
-      "article_id": product.article_id,
+      "article_id":product.article_id,
+      //"Product_Key": product.Product_Key,
       "final_qty": this.overrideReorder
     }
     console.log(prodObj)

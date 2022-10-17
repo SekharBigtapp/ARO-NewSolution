@@ -20,16 +20,22 @@ export class SchedulingConfigComponent implements OnInit {
   dailyForm!: FormGroup;
   weeklyForm!: FormGroup;
   monthlyForm!: FormGroup;
+  jobtitleForm!: FormGroup;
   //jobName: any = "Hyper-V Backup Job";
 
   constructor(private schedulingConfigService: SchedulingConfigService, private formBuilder: FormBuilder,
     public datepipe: DatePipe) { }
 
   ngOnInit(): void {
+
+    this.jobtitleForm = this.formBuilder.group({
+      JobTitle : ['',Validators.required]
+    });
+
     this.dailyForm = this.formBuilder.group({
       //noOfDays: ['1'],
       time: [''],
-      JobTitle:['',Validators.required]
+      //JobTitle:['',Validators.required]
     });
     this.weeklyForm = this.formBuilder.group({
       // date: ['1'],
@@ -60,7 +66,7 @@ export class SchedulingConfigComponent implements OnInit {
     console.log(this.dailyForm.value);
     let Obj = {
       "category": "Daily",
-      "jobname": this.dailyForm.value.JobTitle,
+      "jobname": this.jobtitleForm.value.JobTitle,
       // "No_Of_Days": this.dailyForm.value.noOfDays,
       "time": this.dailyForm.value.time
     }
@@ -76,7 +82,7 @@ export class SchedulingConfigComponent implements OnInit {
     console.log(this.weeklyForm.value);
     let Obj = {
       "category": "Weekly",
-      "jobname": this.dailyForm.value.JobTitle,
+      "jobname": this.jobtitleForm.value.JobTitle,
       // "No_Of_Weeks": this.weeklyForm.value.date,
       // "Time": this.weeklyForm.value.time,
       "weekly_day": this.weeklyForm.value.weekDay
@@ -93,7 +99,7 @@ export class SchedulingConfigComponent implements OnInit {
     console.log(this.monthlyForm.value);
     let Obj = {
       "category": "Monthly",
-      "jobname": this.dailyForm.value.JobTitle,
+      "jobname": this.jobtitleForm.value.JobTitle,
       "date": "",
       // "Time": this.monthlyForm.value.time,
       // "Time_Duration": this.monthlyForm.value.monthCount

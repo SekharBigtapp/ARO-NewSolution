@@ -39,7 +39,7 @@ import { VendorManagedInventoryComponent } from './modules/transaction/vendor-ma
 const routes: Routes = [
 
   { path: '', component: LoginComponent },
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
   // { path: '', component: DashboardComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'optimizeReorder', component: OptimizeReorderComponent },

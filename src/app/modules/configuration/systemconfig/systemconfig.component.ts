@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { CloseScrollStrategy } from '@angular/cdk/overlay';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+
 import { SystemConfigService } from './systemconfig.service';
 
 @Component({
@@ -9,10 +14,23 @@ import { SystemConfigService } from './systemconfig.service';
   styleUrls: ['./systemconfig.component.css']
 })
 export class SystemconfigComponent implements OnInit {
+  systemConfiForm!: FormGroup;
   dailyForm!: FormGroup;
   weeklyForm!: FormGroup;
   monthlyForm!: FormGroup;
+
+  displayColumns: string[] = ['product_name', 'category', 'sub_category', 'frequency',  'Actions']
+
   checkvalue: boolean = true;
+  productNameList: any;
+  categoryList : any;
+  subCategoryValues : any;
+  subcatVal : any;
+  reorderData!: MatTableDataSource<any>;
+  pageSize = 10;
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort!: MatSort;
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -20,6 +38,20 @@ export class SystemconfigComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.systemConfiForm = this.formBuilder.group({
+  
+      ProductCateg: [''],
+      SubCatege: [''],
+      ProductName: [''],
+   
+    })
+    
+
+    this.getCategoryList();
+    //this.getSubCategoryList();
+    this.getProductNamesList();
+
     this.dailyForm = this.formBuilder.group({
       noOfDays: ['1'],
       time: ['', Validators.required]
@@ -34,6 +66,8 @@ export class SystemconfigComponent implements OnInit {
       time: ['', Validators.required],
       monthCount: ['1']
     });
+
+    this.getReorderFrequency();
     
   }
 
@@ -60,23 +94,63 @@ export class SystemconfigComponent implements OnInit {
     this.router.navigate(['configurations']);
   }
 
+  getCategoryList(){
+    this.systemConfigService.getCategory().subscribe((response) => {
+      console.log(response);
+      this.categoryList = response;
+      this.getSubCategoryList();
+    })
+  }
+
+  getSubCategoryList(){
+    //debugger;
+    console.log(this.systemConfiForm.value)
+    let sub = {
+    "prod_cat":this.systemConfiForm.value.ProductCateg,
+    }
+    this.systemConfigService.getSubCategory(sub).subscribe((response) =>{
+      console.log(response);
+      this.subCategoryValues = response
+    })
+  }
+
+  getProductNamesList(){
+    this.systemConfigService.getProductList().subscribe((response) => {
+      console.log(response);
+      this.productNameList = response;
+    });
+  }
+
+  getReorderFrequency(){
+    this.systemConfigService.getReorderFrquency().subscribe((response) => {
+      console.log(response);
+      this.reorderData = new MatTableDataSource(response.data);
+      this.reorderData.paginator = this.paginator;
+      this.reorderData.sort = this.sort;
+    });
+  }
+
+
+ 
   onDailyFormSubmit() {
     console.log(this.dailyForm.value);
     let Obj = {
       "frequencycategory": "Daily",
-      "weeklyday": "Sunday",
-      "weeklyno": this.dailyForm.value.noOfDays,
-      "category": "Sports & Outdoor",
-      "subcategory": "Projectors",
-      "date": "",
-      "product": "Sunny Life Swimming Cap Unicorn",
+      "subcategory": this.systemConfiForm.value.SubCatege,
+      // "weeklyday": "Sunday",
+      // "weeklyno": this.dailyForm.value.noOfDays,
+      "category": this.systemConfiForm.value.ProductCateg,
+      "product": this.systemConfiForm.value.ProductName,
       
     }
+    
     console.log(Obj);
     this.systemConfigService.saveJobConfig(Obj).subscribe((response) => {
       console.log(response);
       this.dailyForm.reset();
       this.dailyForm.controls['noOfDays'].setValue(1);
+
+      this.getReorderFrequency();
     })
   }
 
@@ -84,16 +158,20 @@ export class SystemconfigComponent implements OnInit {
     console.log(this.weeklyForm.value);
     let Obj = {
       "frequencycategory": "Weekly",
-      "Job_Name": "",
-      "No_Of_Weeks": this.weeklyForm.value.date,
-      "Time": this.weeklyForm.value.time,
-      "Days": this.weeklyForm.value.weekDay
+      "weeklyno": this.weeklyForm.value.date,
+      "weeklyday": this.weeklyForm.value.weekDay,
+      "category": this.systemConfiForm.value.ProductCateg,
+      "subcategory": this.systemConfiForm.value.subcategory,
+     
+      "product": this.systemConfiForm.value.ProductName,
     }
     console.log(Obj);
     this.systemConfigService.saveJobConfig(Obj).subscribe((response) => {
       console.log(response);
       this.weeklyForm.reset();
       this.weeklyForm.controls['date'].setValue(1);
+
+      this.getReorderFrequency();
     })
   }
 
@@ -101,17 +179,21 @@ export class SystemconfigComponent implements OnInit {
     console.log(this.monthlyForm.value);
     let Obj = {
       "frequencycategory": "Monthly",
-      "Job_Name": "",
-      "Day": this.monthlyForm.value.date,
-      "Time": this.monthlyForm.value.time,
-      "Time_Duration": this.monthlyForm.value.monthCount
+      "category": this.systemConfiForm.value.ProductCateg,
+      "subcategory": this.systemConfiForm.value.SubCategories,
+     
+      "product": this.systemConfiForm.value.ProductName,
     }
     console.log(Obj);
     this.systemConfigService.saveJobConfig(Obj).subscribe((response) => {
       console.log(response);
       this.monthlyForm.reset();
       this.monthlyForm.controls['monthCount'].setValue(1);
+
+      this.getReorderFrequency();
+      
     })
+
   }
 
   onKeyPress(event: any) {
@@ -120,5 +202,25 @@ export class SystemconfigComponent implements OnInit {
     if (!pattern.test(inputChar)) {
       event.preventDefault();
     }
+  }
+
+  onConfigFormSubmit(){
+    console.log(this.systemConfiForm.value);
+    let obj = {
+      "Category_Name": this.systemConfiForm.value.ProductCateg,
+      "sub_category": this.systemConfiForm.value.SubCatege,
+      "Product_Name": this.systemConfiForm.value.ProductName,
+
+    }
+    // console.log(obj)
+    // this.storeService.searchStores(obj).subscribe((response) => {
+    //   for (let prod of response[0]) {
+    //     prod.editMode = false;
+    //   }
+    //   this.processData = new MatTableDataSource(response[0]);
+    //   console.log(this.processData);
+    //   this.processData.paginator = this.paginator;
+    //   this.processData.sort = this.sort;
+    // })
   }
 }

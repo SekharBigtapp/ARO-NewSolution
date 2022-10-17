@@ -16,7 +16,7 @@ export class ForecastedConfigComponent implements OnInit {
 
   pipe = new DatePipe('en-US');
   forecastForm!: FormGroup;
-  displayColumns: string[] = ['Time_Key', 'Store_Name', 'Product_Name', 'Sales_Volume', 'p10', 'p50', 'p90', 'p10Variance', 'p50Variance', 'p90Variance'];
+  displayColumns: string[] = ['date', 'store_name', 'prod_name', 'sales_qty', 'demand_forecast', 'p10_demand_forecast', 'p50_demand_forecast', 'p90_demand_forecast', 'P10Variance', 'P50Variance', 'P90Variance'];
   forecastMasterData!: MatTableDataSource<any>;
   pageSize = 10;
   isPTenValue: boolean = true;
@@ -77,11 +77,11 @@ export class ForecastedConfigComponent implements OnInit {
     let obj = {
 
       "Date": this.forecastForm.value.Date,
-      "Store_Name": this.forecastForm.value.Store_Name,
-      "Category_Name": this.forecastForm.value.Category_Name,
-      "Subcategory_Name": this.forecastForm.value.Subcategory_Name,
-      "SKU_ID": this.forecastForm.value.SKU_ID,
-      "Product_Name": this.forecastForm.value.Product_Name,
+      "store_name": this.forecastForm.value.Store_Name,
+      "prod_cat": this.forecastForm.value.Category_Name,
+      "prod_subcat": this.forecastForm.value.Subcategory_Name,
+      "sku_id": this.forecastForm.value.SKU_ID,
+      "prod_name": this.forecastForm.value.Product_Name,
 
     }
     this.forecastMasterService.getStores(obj).subscribe((response) => {

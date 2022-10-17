@@ -84,7 +84,7 @@ export class SupplierProductCombinationComponent implements OnInit {
    
     let obj = {
       "Date": el.Date,
-      "article_id": el.article_id,
+      "article_id": el.sku_id,
       "tfr_avail": el.tfr_avail
     }
     this.supplierService.saveSupplier(obj).subscribe((response => {
