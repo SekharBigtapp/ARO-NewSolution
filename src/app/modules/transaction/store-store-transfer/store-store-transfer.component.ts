@@ -51,6 +51,19 @@ export class StoreStoreTransferComponent implements OnInit {
 
   }
 
+  onClear(){
+    this.storeTransferfrom = this.formBuilder.group({
+      Time_Key: [""],
+      Store_Name: [""],
+      Store_Key: [""],
+      SKU_ID: [''],
+      Product_Name: [''],
+      Product_Key: [''],
+      transferqty: [''],
+     
+    });
+  }
+
   getProductNamesList(){
     this.storetransferservice.getProductNames().subscribe((response) => {
       console.log(response);

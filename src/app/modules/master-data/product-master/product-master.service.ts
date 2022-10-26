@@ -10,6 +10,9 @@ import { environment } from "src/environments/environment";
 export class ProductMasterService extends BaseHttp {
     productMasterUrl: string = "product-master";
     addNewProductUrl: string = "add-products";
+    productListurl : string = "product-names"
+    categoriesUrl : string = "categories";
+    subCategoriesUrl : string = "subcategories"
 
     getproductMasterData(Obj: any) {
         return this.post<any>(this.productMasterUrl, Obj);
@@ -17,6 +20,16 @@ export class ProductMasterService extends BaseHttp {
 
     addNewproductMasterData(Obj: any){
         return this.post<any>(this.addNewProductUrl, Obj);
+    }
+    getProductList(){
+        return this.get<any>(this.productListurl)
+    }
+    getCategory(){
+        return this.get<any>(this.categoriesUrl);
+    }
+
+    getSubCategory (sub:any){
+        return this.post<any>(this.subCategoriesUrl, sub);
     }
 
 }

@@ -185,7 +185,9 @@
                               style="width: 150px; display: inline-block; padding: 3px 10px; height: 34px;" />
                           </div>
                         </div> <br> <br>
-                        <div class="pb-5"> <button type="submit" class="btn btn-primary " [disabled]="!dailyForm.valid"> Save </button>
+                        <div class="pb-5"> 
+                          <button type="submit" class="btn btn-primary " [disabled]="!dailyForm.valid"> Save </button>
+                          <button type="submit" class="btn btn-primary " style="margin-left: 10px;" (click)="onClear()" > Clear </button>
                          </div>
                       </form>
                     </div>
@@ -244,7 +246,10 @@
                             </div>
                           </div> <br> <br>
                         </div>
-                        <div class="pb-5"> <button type="submit" class="btn btn-primary mt-5" [disabled]="!weeklyForm.valid"> Save </button> </div>
+                        <div class="pb-5"> 
+                          <button type="submit" class="btn btn-primary mt-5" [disabled]="!weeklyForm.valid"> Save </button>
+                          <button type="submit" class="btn btn-primary mt-5" style="margin-left: 10px;"  (click)="onClear()"> Clear </button>
+                         </div>
                       </form>
                     </div>
 
@@ -268,7 +273,10 @@
                             Month(s)
                           </div>
                         </div>
-                        <div class="pb-5"> <button type="submit" class="btn btn-primary mt-5" [disabled]="!monthlyForm.valid"> Save </button> </div>
+                        <div class="pb-5"> 
+                          <button type="submit" class="btn btn-primary mt-5" [disabled]="!monthlyForm.valid"> Save </button>
+                          <button type="submit" class="btn btn-primary mt-5" style="margin-left: 10px;" (click)="onClear()" > Clear </button>
+                        </div>
                       </form>
                     </div><br> <br>
 

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs';
 import { BaseHttp } from 'src/app/core/services/baseHttp.service';
 
 @Injectable({
@@ -36,4 +37,6 @@ export class StoreService extends BaseHttp {
   getBlanketQty(update:any){
     return this.post<any>(this.updatedBlanketUrl, update)
   }
+
+ 
 }

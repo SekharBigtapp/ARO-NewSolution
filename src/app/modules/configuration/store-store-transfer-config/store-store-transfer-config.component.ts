@@ -61,6 +61,20 @@ export class StoreStoreTransferConfigComponent implements OnInit {
     }))
   }
 
+  onclear(){
+    this.storeTransferForm = this.formBuilder.group({
+      storeID: [""],
+      storeName: [""],
+      distance: [''],
+    });
+
+    this.DcToStoreTransferForm = this.formBuilder.group({
+      dcID:[""],
+      dcName:[""],
+      dcDistance : [""],
+    })
+  }
+
   onDcToStoreSubmit() {
     let object = {
       "dc_name":this.DcToStoreTransferForm.value.dcName,

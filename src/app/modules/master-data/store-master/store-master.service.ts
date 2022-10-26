@@ -7,6 +7,7 @@ import { BaseHttp } from "src/app/core/services/baseHttp.service";
 export class storeMasterService extends BaseHttp {
     storeMasterUrl: string = "store-master";
     addNewStoreMasterUrl: string = "add-stores";
+    StoreNamesUrl: string = "store-names";
 
     getStores(Obj: any) {
         return this.post<any>(this.storeMasterUrl, Obj);
@@ -15,4 +16,7 @@ export class storeMasterService extends BaseHttp {
     addnewStores(Obj: any){
         return this.post<any>(this.addNewStoreMasterUrl,Obj);
     }
+    getStoreNames() {
+        return this.get<any>(this.StoreNamesUrl);
+      }
 }
