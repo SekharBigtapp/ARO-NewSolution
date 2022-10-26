@@ -16,6 +16,7 @@ export class SupplierMasterComponent implements OnInit {
   displayColumns: string[] = ['supp_id', 'supp_name', 'supp_cntry', 'supp_region', 'supp_city', 'supp_email', 'supp_phnum', 'Actions']
   supplierMasterData!: MatTableDataSource<any>;
   pageSize = 10;
+  storeNameList: any;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   constructor(
@@ -28,11 +29,32 @@ export class SupplierMasterComponent implements OnInit {
       state: [""],
       city: [''],
       supplierID: [''],
-      supplierName: ['']
+      supplierName: [''],
+      store_name: ['']
     });
   }
   backButtonClick() {
     this.router.navigate(['masters']);
+  }
+
+  onClear(){
+    this.supplierMasterform = this.formBuilder.group({
+      country: [""],
+      state: [""],
+      city: [''],
+      supplierID: [''],
+      supplierName: [''],
+      store_name: ['']
+    });
+  }
+
+  getStoresNamesList() {
+    this.supplierMasterService.getStoreNames().subscribe((response) => {
+      console.log(response);
+      this.storeNameList = response;
+      
+    });
+
   }
 
   onSupplierMasterSubmit() {

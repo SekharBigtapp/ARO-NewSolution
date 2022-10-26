@@ -23,6 +23,9 @@ export class ForecastedConfigComponent implements OnInit {
   isPFiftyValue: boolean = false;
   isPNintyValue: boolean = false;
   storeNameList: any;
+  categorysList:any;
+  subCategorysValues:any;
+  productNameList:any;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
@@ -43,6 +46,8 @@ export class ForecastedConfigComponent implements OnInit {
       SKU_ID: [''],
     });
     this.getStoresNamesList();
+    this.getProductNamesList();
+    this.getCategoryList();
     let checkbox1 = document.getElementById("inlineRadio1") as HTMLInputElement;
     let checkbox2 = document.getElementById("inlineRadio2") as HTMLInputElement;
     let checkbox3 = document.getElementById("inlineRadio3") as HTMLInputElement;
@@ -71,6 +76,42 @@ export class ForecastedConfigComponent implements OnInit {
       this.storeNameList = response;
     });
 
+  }
+  getCategoryList() {
+    this.forecastMasterService.getCategory().subscribe((response) => {
+      console.log(response);
+      this.categorysList = response;
+      this.getSubCategorysList();
+    })
+  }
+  getSubCategorysList() {
+    //debugger;
+    console.log(this.forecastForm.value)
+    let sub = {
+      "prod_cat": this.forecastForm.value.Category_Name,
+    }
+    this.forecastMasterService.getSubCategory(sub).subscribe((response) => {
+      console.log(response);
+      this.subCategorysValues = response
+    })
+  }
+  getProductNamesList() {
+    this.forecastMasterService.getProductList().subscribe((response) => {
+      console.log(response);
+      this.productNameList = response;
+    });
+  }
+
+  onclear(){
+    this.forecastForm = this.formBuilder.group({
+
+      Date: [""],
+      Store_Name: [""],
+      Category_Name: [""],
+      Subcategory_Name: [''],
+      Product_Name: [''],
+      SKU_ID: [''],
+    });
   }
 
   onforecastMasterClick() {

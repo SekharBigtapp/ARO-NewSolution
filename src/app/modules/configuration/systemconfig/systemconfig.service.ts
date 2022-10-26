@@ -5,11 +5,14 @@ import { BaseHttp } from "src/app/core/services/baseHttp.service";
     providedIn: 'root',
 })
 export class SystemConfigService extends BaseHttp {
-    reorderFrequencyUrl: string = "reorder-frequency";
+    reorderFrequencyUrl: string = "add-reorderfrequency";
     categoriesUrl : string = "categories";
     subCategoriesUrl : string = "subcategories"
     productListurl : string = "product-names"
-    getreorderFrequencyUrl: string = "getreorderfrequency";
+    getreorderfilterFrequencyUrl: string = "getreorderfrequency";
+    storenameListurl : string = "store-names";
+    filter: string="add-reorderfrequency";
+    editreorderFrequencyUrl: string ="single-reorder-update";
 
 
     saveJobConfig(Obj: any) {
@@ -27,7 +30,16 @@ export class SystemConfigService extends BaseHttp {
         return this.get<any>(this.productListurl)
     }
 
-    getReorderFrquency(){
-        return this.get<any>(this.getreorderFrequencyUrl)
+    getReorderFilterFrquency(Obj:any){
+        return this.post<any>(this.getreorderfilterFrequencyUrl,Obj)
+    }
+    
+    getStoreNames(){
+        return this.get<any>(this.storenameListurl);
+    }
+
+    
+    editReorderFrequency(Obj: any){
+        return this.post<any>(this.editreorderFrequencyUrl, Obj);
     }
 }

@@ -50,6 +50,28 @@ export class SchedulingConfigComponent implements OnInit {
     this.getJobSchedulers();
   }
 
+  onClear(){
+    this.jobtitleForm = this.formBuilder.group({
+      JobTitle : ['']
+    });
+
+    this.dailyForm = this.formBuilder.group({
+      //noOfDays: ['1'],
+      time: [''],
+      //JobTitle:['',Validators.required]
+    });
+    this.weeklyForm = this.formBuilder.group({
+      // date: ['1'],
+      // time: ['', Validators.required],
+      weekDay: ['', ]
+    });
+    this.monthlyForm = this.formBuilder.group({
+      date: [''],
+      //time: ['', ],
+     // monthCount: ['1']
+    });
+  }
+
   getJobSchedulers() {
     this.schedulingConfigService.getJobScheduler().subscribe((response) => {
       for (let resp of response) {

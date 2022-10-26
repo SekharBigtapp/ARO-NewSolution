@@ -16,6 +16,7 @@ export class StoreMasterComponent implements OnInit {
   displayColumns: string[] = ['store_id', 'store_name', 'store_city', 'store_region', 'store_cntry', 'store_long', 'store_lat', 'Actions']
   storeData!: MatTableDataSource<any>;
   pageSize = 10;
+  storeNameList: any;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   constructor(
@@ -30,9 +31,28 @@ export class StoreMasterComponent implements OnInit {
       storeId: [''],
       storeName: ['']
     });
+    this.getStoresNamesList();
   }
   backButtonClick() {
     this.router.navigate(['masters']);
+  }
+
+  onclear(){
+    this.storeMasterform = this.formBuilder.group({
+      country: [""],
+      state: [""],
+      city: [''],
+      storeId: [''],
+      storeName: ['']
+    });
+  }
+  getStoresNamesList() {
+    this.storeMasterService.getStoreNames().subscribe((response) => {
+      console.log(response);
+      this.storeNameList = response;
+      
+    });
+
   }
   onStoreMasterSubmit() {
     let obj = {

@@ -16,6 +16,9 @@ export class StoreSupplierMasterComponent implements OnInit {
   displayColumns: string[] = ['prod_name', 'sku_id', 'prod_cat', 'prod_subcat', 'store_id', 'store_name','supp_id', 'supp_name', 'supp_city', 'Actions']
   storesupplierMasterData!: MatTableDataSource<any>;
   pageSize = 10;
+  storeNameList: any;
+  productNameList: any;
+  categoryList: any;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
@@ -31,10 +34,49 @@ export class StoreSupplierMasterComponent implements OnInit {
       supplierID: [''],
       supplierName: [''],
     });
+
+    this.getStoresNamesList();
+    this.getProductNameList();
+    this.getCategoryList();
     
   }
   backButtonClick(){
     this.router.navigate(['masters']);
+  }
+
+  onclear(){
+    this.storesupplierMasterform = this.formBuilder.group({
+      storename: [""],
+      productname: [""],
+      categoryname: [""],
+      supplierID: [''],
+      supplierName: [''],
+      
+    });
+  }
+
+  getProductNameList() {
+    this.storesupplierMasterService.getProductList().subscribe((response) => {
+      console.log(response);
+      this.productNameList = response;
+    });
+  }
+
+  getCategoryList() {
+    this.storesupplierMasterService.getCategory().subscribe((response) => {
+      console.log(response);
+      this.categoryList = response;
+      
+    })
+  }
+
+  getStoresNamesList() {
+    this.storesupplierMasterService.getStoreNames().subscribe((response) => {
+      console.log(response);
+      this.storeNameList = response;
+      
+    });
+
   }
 
   onStoreSupplierMasterSubmit() {

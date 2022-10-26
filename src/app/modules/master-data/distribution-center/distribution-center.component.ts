@@ -36,6 +36,16 @@ export class DistributionCenterComponent implements OnInit {
     this.router.navigate(['masters']);
   }
 
+  onClear(){
+    this.distributionCenterform = this.formBuilder.group({
+      country: [""],
+      state: [""],
+      city: [''],
+      distributionCenterID: [''],
+      distributionCentralName: ['']
+    });
+  }
+
   onDistributionCenterSubmit() {
     console.log(this.distributionCenterform.value);
     let obj = {

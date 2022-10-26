@@ -55,23 +55,39 @@ export class SupplierProductCombinationComponent implements OnInit {
 
   }
 
-  getCategoryList (){
+  getCategoryList() {
     this.supplierService.getCategoryNames().subscribe((response) => {
       console.log(response);
       this.categoryNameList = response;
+      this.getSubCategorysList();
     })
   }
 
-  getSubCategoryList (){
-    let obj = { "Category_Name" :this.supplierForm.value.CategoryName}
-    this.supplierService.getSubCategoryNames(obj).subscribe((response) => {
-      
-      //console.log(response);
-      //alert ();
-      this.subCategoryNameList = response;
+
+  getSubCategorysList() {
+    //debugger;
+    console.log(this.supplierForm.value)
+    let sub = {
+      "prod_cat": this.supplierForm.value.CategoryName,
+    }
+    this.supplierService.getSubCategoryNames(sub).subscribe((response) => {
+      console.log(response);
+      this.subCategoryNameList = response
     })
-    
   }
+  onClear(){
+    this.supplierForm= this.formBuilder.group ({
+      date: [""],
+      SupplierName : [''],
+      StoreName: [''],
+      CategoryName: [''],
+      SubcategoryName: [''],
+      ProductName:[''],
+      SKU_CODE: [''],
+    });
+  }
+
+ 
   getProductNamesList(){
     this.supplierService.getProductNames().subscribe((response) => {
       console.log(response);

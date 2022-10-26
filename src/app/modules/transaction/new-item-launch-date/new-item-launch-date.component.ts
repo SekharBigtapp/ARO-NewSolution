@@ -20,6 +20,9 @@ export class NewItemLaunchDateComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) dataSort!: MatSort;
   upcomingItemForm!: FormGroup;
   selecteditem = ''
+  categoryNameList:any;
+  productNameList:any;
+  subCategoryNameList:any;
 
   constructor(
     private router: Router,
@@ -30,15 +33,58 @@ export class NewItemLaunchDateComponent implements OnInit {
   ngOnInit(): void {
     this.upcomingItemForm = this.formBuilder.group({
       storeName: [""],
-      productCategories: [""],
-      subCategory: [''],
-      productName: [''],
+      CategoryName: [''],
+      SubcategoryName: [''],
+      ProductName:[''],
       skuCode: [''],
       Store_Name: [''],
     });
+    
+    this.getProductNamesList();
+    this.getCategoryList(); 
   }
   backButtonClick() {
     this.router.navigate(['transaction']);
+  }
+
+  
+
+  getCategoryList() {
+    this.newLaunchService.getCategoryNames().subscribe((response) => {
+      console.log(response);
+      this.categoryNameList = response;
+      this.getSubCategorysList();
+    })
+  }
+  onClear(){
+    this.upcomingItemForm = this.formBuilder.group({
+      storeName: [""],
+      CategoryName: [''],
+      SubcategoryName: [''],
+      ProductName:[''],
+      skuCode: [''],
+      Store_Name: [''],
+    });
+    
+  }
+
+  getSubCategorysList() {
+    //debugger;
+    console.log(this.upcomingItemForm.value)
+    let sub = {
+      "prod_cat": this.upcomingItemForm.value.CategoryName,
+    }
+    this.newLaunchService.getSubCategoryNames(sub).subscribe((response) => {
+      console.log(response);
+      this.subCategoryNameList = response
+    })
+  }
+  getProductNamesList(){
+    this.newLaunchService.getProductNames().subscribe((response) => {
+      console.log(response);
+      this.productNameList = response;
+    })
+    
   }
 
   similarProduct(element: any, selectedOption: any) {

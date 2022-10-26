@@ -7,6 +7,7 @@ import { BaseHttp } from "src/app/core/services/baseHttp.service";
 export class supplerMasterService extends BaseHttp {
     supplerMasterUrl: string = "supplier-master";
     addNewSupplierUrl: string = "add-suppliers";
+    StoreNamesUrl: string = "store-names";
 
     getStores(Obj: any) {
         return this.post<any>(this.supplerMasterUrl, Obj);
@@ -15,4 +16,7 @@ export class supplerMasterService extends BaseHttp {
     addNewSupplierData(Obj: any) {
         return this.post<any>(this.addNewSupplierUrl, Obj);
     }
+    getStoreNames() {
+        return this.get<any>(this.StoreNamesUrl);
+      }
 }
