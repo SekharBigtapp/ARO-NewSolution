@@ -1,6 +1,6 @@
 <!-- partial -->
 <div class="content-wrapper">
-  <div class=" container">
+  <div class=" ">
     <div class=" pb-0">
 
       <!-- first row starts here -->
@@ -54,23 +54,17 @@
                     <li role="presentation" class="active">
                       <a class="nav-link" href="#tab-1" aria-controls="tab-1" role="tab" data-toggle="tab"
                         aria-selected="false">
-                        <label class="form-check-label">
-                          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1"
-                            value="option1"> Daily </label>
+                        Daily
                       </a>
                     </li>
                     <li role="presentation" class="nav-item">
                       <a class="nav-link" href="#tab-2" aria-controls="tab-2" role="tab" data-toggle="tab">
-                        <label class="form-check-label">
-                          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2"
-                            value="option2" /> Weekly </label>
+                        Weekly
                       </a>
                     </li>
                     <li role="presentation" class="nav-item">
                       <a class="nav-link" href="#tab-3" aria-controls="tab-3" role="tab" data-toggle="tab">
-                        <label class="form-check-label">
-                          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3"
-                            value="option3" /> Monthly </label>
+                        Monthly
                       </a>
                     </li>
 
@@ -420,6 +414,14 @@
 
 
                 <form [formGroup]="systemConfigFormFilter" (ngSubmit)="onConfigFilterFormSubmit()">
+                  
+               
+                 
+                <div class="filter-table-data">
+                  <div class="mb-3">
+                    <h3 class="d-inline-block"> Reorder Frequency List </h3>
+                  </div>
+
                   <div class="row">
                     <div class="col-md-3">
                       <div class="form-group">
@@ -467,12 +469,8 @@
                     <button type="button" class=" btn btn-sm btn-success mt-2 mt-sm-0 btn-icon-text" style="margin-left: 15px;"  (click)="onFilterclear()">
                       <i class="mdi mdi-checkbox-marked-circle-outline" ></i> Clear </button>
                   </div>
-               
-                 
-                <div class="filter-table-data">
-                  <div class="mb-3">
-                    <h3 class="d-inline-block"> Reorder Frequency List </h3>
-                  </div>
+
+
                   <div class="table-responsive ">
                     <table mat-table [dataSource]="reorderData" *ngIf="!!reorderData" matSort
                       class="mat-elevation-z8 mat-datagrid w-100 table-bordered">
