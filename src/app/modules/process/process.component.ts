@@ -1,12 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StoreService } from './storeservice';
-import { map, Observable, startWith, subscribeOn } from 'rxjs';
+import { subscribeOn } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Observable, of, Subscription } from 'rxjs';
+import {
+  tap,
+  startWith,
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  map,
+} from 'rxjs/operators';
 export interface User {
   name: string;
 }
@@ -32,15 +41,25 @@ export class ProcessComponent implements OnInit {
   subCategoryNameList: any;
   blanketOverrideForm!: FormGroup;
 
-  title = 'autocomplete';
-
-  options = ["Sam", "Varun", "Jasmine"];
-
+  myControl = new FormControl();
   filteredOptions: any;
+
+
+
+
   constructor(private http: HttpClient, private storeService: StoreService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder) { }  
 
   ngOnInit(): void {
+
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap((val) => {
+        return this.filter(val || '');
+      })
+    );
 
     this.processForm = this.formBuilder.group({
       date: [''],
@@ -50,7 +69,7 @@ export class ProcessComponent implements OnInit {
       abcClass: [''],
       ProductName: [''],
       SKU_CODE: [''],
-      CategoryName: [''],
+      CategoryName : [''],
       SubcategoryName: [''],
     });
     this.blanketOverrideForm = this.formBuilder.group({
@@ -58,47 +77,24 @@ export class ProcessComponent implements OnInit {
     });
 
     this.getStoresNamesList();
-    this.getProductNamesList();
-
-
-    // this.initForm();
+    this.getProductNamesList();   
     this.getCategoryList();
 
 
+  } 
+
+  filter(val: string): Observable<any[]> {
+    // call the service which makes the http-request
+    return this.storeService.getCategoryNames().pipe(
+      tap((val) => console.log(val)),
+      map((response) =>
+        response.filter((option: { name: string; }) => {
+          return this.categoryNameList.prod_cat.toLowerCase().indexOf(val.toLowerCase()) === 0;
+        })
+      )
+    );
   }
-
-
-  // initForm(){
-  //   this.processForm = this.formBuilder.group({
-  //     'employee' : ['']
-  //   })
-  //   this.processForm.get('employee')?.valueChanges.subscribe(response => {
-  //     console.log('data is ', response);
-  //     this.filterData(response);
-  //   })
-  // }
-
-  filterData(enteredData: any) {
-    //debugger
-    const filterValue = enteredData.toLowerCase()
-    // this.filteredOptions = this.options.filter(item => {
-    //  return enteredData.str.toLowerCase().indexOf(enteredData.prod_cat.toLowerCase()) > -1
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-
-  }
-
-
-
-  // displayFn(user: User): string {
-  //   return user && user.name ? user.name : '';
-  // }
-
-  // private _filter(name: string): User[] {
-  //   const filterValue = name.toLowerCase();
-
-  //   return this.categoryNameList.filter(this.categoryNameList.prod_cat.toLowerCase().includes(filterValue));
-  // }
-
+ 
   getStoresNamesList() {
     this.storeService.getStoreNames().subscribe((response) => {
       console.log(response);

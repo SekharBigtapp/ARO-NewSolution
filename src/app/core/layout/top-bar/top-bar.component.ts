@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { LoginService } from 'src/app/modules/auth/login/services/login.service';
 import { DataStorageService } from '../../services/data-storage.service';
 
+
+
 @Component({
   selector: 'app-top-bar',
   templateUrl: './top-bar.component.html',
@@ -17,7 +19,9 @@ export class TopBarComponent implements OnInit {
     private router: Router,
     private loginService: LoginService,
     public dataStorage: DataStorageService
-  ) { }
+  ) { 
+    
+  }
 
   ngOnInit(): void {
     if (localStorage.getItem("username") && (localStorage.getItem("userRole"))) {
@@ -29,7 +33,13 @@ export class TopBarComponent implements OnInit {
       //   this.userRole = JSON.parse(userRole);
       // }
       
+      
     }
+
+    // 
+    
+    
+    
   }
 
 
@@ -37,16 +47,27 @@ export class TopBarComponent implements OnInit {
     //alert();
     // debugger;
     alert("Aru sure you want to signout");
+  
+    
     //debugger;
     let obj= {
       "Username": this.username,
       "Token_generated": localStorage.getItem("token")
     }
+
+        
     this.loginService.UserLogout(obj).subscribe((response)=>{
       console.log(response)
-      localStorage.clear();
+      localStorage.clear();      
       this.dataStorage.isUserLoggedIn = false;
-      this.router.navigateByUrl('/')
+      this.router.navigateByUrl("/")
+    //   localStorage.removeItem('username');
+    // localStorage.removeItem('token');
+    // localStorage.removeItem('userRole');
+     
+
+      
+      
       
     }, (error)=>{console.log(error)}
     )

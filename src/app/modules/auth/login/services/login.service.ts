@@ -16,6 +16,7 @@ export class LoginService extends BaseHttp {
     UserLogout(username:any){
         return this.logout<any>(this.logOutUrl,username);
     }
+    
     // UserLogout(userName: any) {
     //     return this.get<any>(this.logoutUrl + "?userName=" + userName);
     // }

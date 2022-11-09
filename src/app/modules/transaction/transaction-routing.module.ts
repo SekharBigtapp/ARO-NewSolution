@@ -12,16 +12,16 @@ import { TransactionComponent } from './transaction.component';
 import { VendorManagedInventoryComponent } from './vendor-managed-inventory/vendor-managed-inventory.component';
 
 const routes: Routes = [
-  { path: '', component: TransactionComponent },
-  { path: 'transaction', component: TransactionComponent },
-  { path: 'vendormanagedinventory', component: VendorManagedInventoryComponent },
-  { path: 'store2storetransfer', component: StoreStoreTransferComponent },
-  { path: 'stockregister', component: StockRegisterComponent },
-  { path: 'promotiondetails', component: PromotionDetailsComponent },
-  { path: 'pricemarkdown', component: PriceMarkdownComponent },
-  { path: 'possale', component: PosSaleComponent },
-  { path: 'physicalstock', component: PhysicalStockCheckComponent },
-  { path: 'phaseoutitem', component: PhaseOutItemsComponent },
+ // { path: '', component: TransactionComponent },
+ { path: 'pricemarkdown', component: PriceMarkdownComponent },
+ { path: 'phaseoutitem', component: PhaseOutItemsComponent },
+ { path: 'promotiondetails', component: PromotionDetailsComponent },
+ { path: 'stockregister', component: StockRegisterComponent },
+ { path: 'possale', component: PosSaleComponent },
+ { path: 'physicalstock', component: PhysicalStockCheckComponent },
+  //{ path: 'transaction', component: TransactionComponent },
+  //{ path: 'vendormanagedinventory', component: VendorManagedInventoryComponent },
+  { path: 'store2storetransfer', component: StoreStoreTransferComponent },  
   { path: 'newlauchitem', component: NewItemLaunchDateComponent },
 ];
 

@@ -23,9 +23,12 @@ export class AppComponent {
       }
       if (e instanceof NavigationEnd) {
         window.scrollTo(0, 0);
-        if (localStorage.getItem("token")) {
-          this.dataStorage.isUserLoggedIn = true;
+        
+        if (localStorage.getItem("token")) { 
+          console.log(this.dataStorage.isUserLoggedIn);       
+          this.dataStorage.isUserLoggedIn = true;         
         }
+       
       }
     });
   }

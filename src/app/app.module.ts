@@ -48,14 +48,16 @@ import { OptimizeReorderComponent } from './modules/dashboard/optimize-reorder/o
 import { SupplierProductCombinationComponent } from './modules/process/supplier-product-combination/supplier-product-combination.component';
 import { LoginComponent } from './modules/auth/login/login.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { AuthGuard } from './core/services/auth/auth.service';
+import { DataStorageService } from './core/services/data-storage.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
+   HeaderComponent,
     FooterComponent,
-    DashboardComponent,
-    AdminComponent,
+    //DashboardComponent,
+    //AdminComponent,
     ProcessComponent,
     TransactionComponent,
     PriceMarkdownComponent,
@@ -71,7 +73,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     TopBarComponent,
     OptimizeReorderComponent,
     SupplierProductCombinationComponent,
-    LoginComponent,
+    //LoginComponent,
     // MasterDataComponent,
     // ProductMasterComponent,
     // StoreMasterComponent,
@@ -101,12 +103,11 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
-    
-    
 
 
+    
   ],
-  providers: [],
+  providers: [DataStorageService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

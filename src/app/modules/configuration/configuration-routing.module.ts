@@ -11,7 +11,7 @@ import { SystemconfigComponent } from './systemconfig/systemconfig.component';
 
 const routes: Routes = [
 
-  { path: '', component: ConfigurationComponent, },
+ // { path: '', component: ConfigurationComponent, },
   { path: 'systemConfig', component: SystemconfigComponent, },
   { path: 'storeTransfer', component: StoreStoreTransferConfigComponent, },
   { path: 'scheduling', component: SchedulingConfigComponent, },

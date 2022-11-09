@@ -13,9 +13,10 @@ export class MasterDataComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    alert('hi');
   }
   productMasterClick() {
-    //alert('hi');
+    alert('hi');
     this.router.navigate(['masters/productmaster']);
   }
   storeMasterClick() {

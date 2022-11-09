@@ -73,23 +73,21 @@
 
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label for="exampleFormControlSelect2">Product Categories</label>
+                          <!-- <label for="exampleFormControlSelect2">Product Categories</label>
                           <select class="form-control form-control-sm" formControlName="ProductCateg"
                             (change)="getSubCategorysList()">
                             <option *ngFor="let category of categoryNameList" [value]="category.prod_cat">
                               {{category.prod_cat}}</option>
-                          </select>
-                          <!-- <mat-form-field>
-                            <mat-label>
-                              Employee
-                            </mat-label>
-                            <input formControlName="employee" matInput type="text" [matAutocomplete]="auto" />
+                          </select> -->
+                          <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Assignee</mat-label>
+                            <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
                             <mat-autocomplete #auto="matAutocomplete">
-                              <mat-option *ngFor="let item of filteredOptions" [value]="item.prod_cat">
-                                {{item.prod_cat}}
+                              <mat-option *ngFor="let option of categoryNameList " [value]="option.prod_cat">
+                                {{option.prod_cat}}
                               </mat-option>
                             </mat-autocomplete>
-                          </mat-form-field> -->
+                          </mat-form-field>
                         </div>
                       </div>
 

@@ -25,16 +25,16 @@ import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
-    TransactionComponent,
-    VendorManagedInventoryComponent,
-    StoreStoreTransferComponent,
-    StockRegisterComponent,
-    PromotionDetailsComponent,
-    PriceMarkdownComponent,
-    PosSaleComponent,
-    PhysicalStockCheckComponent,
-    PhaseOutItemsComponent,
-    NewItemLaunchDateComponent
+    //TransactionComponent,
+    //VendorManagedInventoryComponent,
+    //StoreStoreTransferComponent,
+    //StockRegisterComponent,
+    //PromotionDetailsComponent,
+   // PriceMarkdownComponent,
+    //PosSaleComponent,
+    //PhysicalStockCheckComponent,
+   //PhaseOutItemsComponent,
+    //NewItemLaunchDateComponent
   ],
   imports: [
     CommonModule,

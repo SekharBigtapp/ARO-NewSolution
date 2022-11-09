@@ -13,16 +13,20 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LoginService } from './login/services/login.service';
 import { LoginComponent } from './login/login.component';
+import { AuthRoutingModule } from './auth-routing.module';
 //import { AuthRoutingModule } from './auth-routing.module';
 
 
 @NgModule({
   declarations: [
+
+  LoginComponent
     
   ],
   imports: [
     CommonModule,
-    FormsModule,
+    AuthRoutingModule,
+    FormsModule,    
     ReactiveFormsModule,
     MatIconModule,
     MatTabsModule,

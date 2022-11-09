@@ -43,10 +43,13 @@ export class LoginComponent implements OnInit {
 
      ngOnInit(): void {
       if (this.dataStorage.isUserLoggedIn) {
-        let data = localStorage.getItem("LoginData");
+        let data = localStorage.getItem("token");
         if (data) {
-          this.loginData = JSON.parse(data);
+          //this.loginData = JSON.parse(data);
+          this.router.navigateByUrl("dashboard")
         }
+
+
         
       }
       this.LoginForm = this.formBuilder.group({
@@ -83,7 +86,7 @@ export class LoginComponent implements OnInit {
           }
         ).subscribe((response:any) => {
           console.log(response)
-          this.router.navigateByUrl('dashboard')
+          this.router.navigateByUrl("dashboard")
           this.authorizationMessage = MyAppHttp.ToasterMessage.activeOrNot;
           this.dataStorage.isUserLoggedIn = true
           localStorage.setItem("token", response.Token_generated);

@@ -28,8 +28,8 @@ import { DCStoreMappingComponent } from './dc-store-mapping/dc-store-mapping.com
   ],
   imports: [
     CommonModule,
-    RouterModule,
     ConfigurationRoutingModule,
+    RouterModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
