@@ -185,6 +185,14 @@ body {
   }
  
 } */
+.stretch-card .nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #1c1c1c !important;
+}
+.stretch-card .nav-tabs .nav-link.active {
+  color: #000eaf !important;
+}
 
 .main-panel app-login { 
   position: absolute;
