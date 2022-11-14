@@ -19,13 +19,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { AddNewDistributionCenterComponent } from './distribution-center/add-new-distribution-center/add-new-distribution-center.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
   declarations: [
     MasterDataComponent,
     SupplierMasterComponent,
-    StoreSupplierMasterComponent,
+    //StoreSupplierMasterComponent,
     StoreMasterComponent,
     ProductMasterComponent,
     DistributionCenterComponent,
@@ -45,6 +46,7 @@ import { AddNewDistributionCenterComponent } from './distribution-center/add-new
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatAutocompleteModule,
   ]
 })
 export class MasterDataModule { }

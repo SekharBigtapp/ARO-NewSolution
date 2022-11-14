@@ -6,11 +6,16 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { supplerMasterService } from './supplier-master.service';
 
+export interface User {
+  store_name: string;
+}
+
 @Component({
   selector: 'app-supplier-master',
   templateUrl: './supplier-master.component.html',
   styleUrls: ['./supplier-master.component.css']
 })
+
 export class SupplierMasterComponent implements OnInit {
   supplierMasterform!: FormGroup;
   displayColumns: string[] = ['supp_id', 'supp_name', 'supp_cntry', 'supp_region', 'supp_city', 'supp_email', 'supp_phnum', 'Actions']
@@ -19,6 +24,8 @@ export class SupplierMasterComponent implements OnInit {
   storeNameList: any;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
+  
+  
   constructor(
     private router: Router, private formBuilder: FormBuilder, private supplierMasterService: supplerMasterService
   ) { }
@@ -30,8 +37,9 @@ export class SupplierMasterComponent implements OnInit {
       city: [''],
       supplierID: [''],
       supplierName: [''],
-      store_name: ['']
+      storeName: ['']
     });
+    this.getStoresNamesList();
   }
   backButtonClick() {
     this.router.navigate(['masters']);

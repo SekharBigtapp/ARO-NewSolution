@@ -1,10 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { map, startWith } from 'rxjs';
 import { ProductMasterService } from './product-master.service';
+
+export interface User {
+  prod_name: string;
+}
+
+export interface Category {
+  prod_cat: string;
+}
+
 
 @Component({
   selector: 'app-product-master',
@@ -16,13 +26,28 @@ export class ProductMasterComponent implements OnInit {
   productdata!: MatTableDataSource<any>;
   displayColumns: string[] = ['prod_name', 'sku_id', 'prod_cat', 'prod_subcat', 'pkg_units', 'Actions'];
   pageSize = 10;
-  productNameList: any;
-  categoryList: any;
+  //productNameList: any;
+  // categoryList: any;
   subCategoryValues: any;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   productMasterForm!: FormGroup;
-  ProductName : string = '';
+  ProductName : string = '';  
+
+
+  productName = new FormControl<string | User>('');
+  options: User[] = [];
+  productNameList: any;
+  productnamefield:any;
+
+  productCategories = new FormControl<string | Category>('');
+  categoryoptions: Category[] = [];
+  categoryList: any;
+  categorynamefield:any;
+
+  autovalueProduct:any;
+  autovalueCategory:any;
+
 
   constructor(
     private router: Router,
@@ -30,7 +55,23 @@ export class ProductMasterComponent implements OnInit {
     private formBuilder: FormBuilder
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {     
+    this.productNameList = this.productName.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const prod_name = typeof value === 'string' ? value : value?.prod_name;
+        return prod_name ? this._filter(prod_name as string) : this.options.slice();
+      }),
+    );   
+
+    this.categoryList = this.productCategories.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const prod_cat = typeof value === 'string' ? value : value?.prod_cat;
+        return prod_cat ? this._filterCategory(prod_cat as string) : this.categoryoptions.slice();
+      }),
+    );   
+    
     this.productMasterForm = this.formBuilder.group({
       productName: [""],
       productCategories: [""],
@@ -43,19 +84,19 @@ export class ProductMasterComponent implements OnInit {
   }
   backButtonClick() {
     this.router.navigate(['masters']);
-  }
+  }  
 
-  getProductNameList() {
+   getProductNameList() {
     this.productMasterService.getProductList().subscribe((response) => {
       console.log(response);
-      this.productNameList = response;
+      this.options = response;
     });
   }
 
   getCategoryList() {
     this.productMasterService.getCategory().subscribe((response) => {
       console.log(response);
-      this.categoryList = response;
+      this.categoryoptions = response;
       
     })
   }
@@ -68,21 +109,63 @@ export class ProductMasterComponent implements OnInit {
       SKUCode: [''],
       productStatus: ['']
     });
+    this.productnamefield = '';
+    this.categorynamefield= '';
+    this.autovalueProduct = "";
+    this.autovalueCategory = "";
     console.log(this.productMasterForm);
   }
 
-  onProductMasterSubmit() {
-    console.log(this.productMasterForm);
-    
-    let data = {
-      
+  private _filter(prod_name: string): User[] {
+    const filterValue = prod_name.toLowerCase();
+    this.autovalueProduct= filterValue;
+    console.log(filterValue);
+    return this.options.filter(products => products.prod_name.toLowerCase().includes(filterValue));
+  }
+
+  private _filterCategory(prod_cat: string): Category[] {
+    const filterValue = prod_cat.toLowerCase();
+    this.autovalueCategory=filterValue;
+    //console.log(filterValue);
+    return this.categoryoptions.filter(category => category.prod_cat.toLowerCase().includes(filterValue));
+  }
+
+  onProductMasterSubmit(){
+     this.ProductMaster();
+  } 
+
+  ProductMaster() {
+    let data = {}
+    if (this.autovalueProduct == undefined && this.autovalueCategory == undefined) {
+      data = {       
       "prod_name": this.productMasterForm.value.productName,
       "prod_cat": this.productMasterForm.value.productCategories,
       //"Status": this.productMasterForm.value.productStatus,
       "sku_id": this.productMasterForm.value.SKUCode,
-      
-     
+      }
+    }else if(this.autovalueCategory == undefined){
+      data = {       
+        "prod_name": this.autovalueProduct,
+        "prod_cat": this.productMasterForm.value.productCategories,
+        //"Status": this.productMasterForm.value.productStatus,
+        "sku_id": this.productMasterForm.value.SKUCode,
+        }
+    }else if(this.autovalueProduct == undefined){
+      data = {       
+        "prod_name": this.productMasterForm.value.productName,
+        "prod_cat": this.autovalueCategory,
+        //"Status": this.productMasterForm.value.productStatus,
+        "sku_id": this.productMasterForm.value.SKUCode,
+        }
     }
+    else{
+      data = {      
+        "prod_name": this.autovalueProduct,
+        "prod_cat": this.autovalueCategory,
+        //"Status": this.productMasterForm.value.productStatus,
+        "sku_id": this.productMasterForm.value.SKUCode,
+      }      
+    }   
     console.log(data);
     this.productMasterService.getproductMasterData(data).subscribe((response) => {
       console.log(response);
@@ -95,4 +178,6 @@ export class ProductMasterComponent implements OnInit {
 
   onProdSave(element: any) { }
 }
+
+
 

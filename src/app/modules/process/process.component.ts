@@ -16,9 +16,13 @@ import {
   switchMap,
   map,
 } from 'rxjs/operators';
-export interface User {
-  name: string;
+export interface Product {
+  prod_cat: string;  
 }
+export interface Store {
+  store_name: string;  
+}
+
 @Component({
   selector: 'app-process',
   templateUrl: './process.component.html',
@@ -34,33 +38,24 @@ export class ProcessComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   minDate = new Date("8-1-2022");
-  storeNameList: any;
-
-  categoryNameList: any;
+  //storeNameList: any;
   productNameList: any;
   subCategoryNameList: any;
   blanketOverrideForm!: FormGroup;
 
-  myControl = new FormControl();
-  filteredOptions: any;
+  ProductCateg = new FormControl<string | Product>('');
+  categoryNameList: any;
+  options: Product[] = [];  
 
-
-
+  StoreName = new FormControl<string | Store>('');
+  storeNameList: any;
+  stores: Store[] = [];  
 
   constructor(private http: HttpClient, private storeService: StoreService,
     private formBuilder: FormBuilder) { }  
 
-  ngOnInit(): void {
-
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      debounceTime(400),
-      distinctUntilChanged(),
-      switchMap((val) => {
-        return this.filter(val || '');
-      })
-    );
-
+  ngOnInit(): void {   
+   
     this.processForm = this.formBuilder.group({
       date: [''],
       store_name: [''],
@@ -75,23 +70,26 @@ export class ProcessComponent implements OnInit {
     this.blanketOverrideForm = this.formBuilder.group({
       BlanketValue: [""],
     });
-
+    this.init();
     this.getStoresNamesList();
-    this.getProductNamesList();   
+    this.getProductNamesList();    
     this.getCategoryList();
+  }  
+  init(){
+    this.categoryNameList = this.ProductCateg.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const prod_cat = typeof value === 'string' ? value : value?.prod_cat;
+        return prod_cat ? this._filter(prod_cat as string) : this.options.slice();
+      }),
+    );
 
-
-  } 
-
-  filter(val: string): Observable<any[]> {
-    // call the service which makes the http-request
-    return this.storeService.getCategoryNames().pipe(
-      tap((val) => console.log(val)),
-      map((response) =>
-        response.filter((option: { name: string; }) => {
-          return this.categoryNameList.prod_cat.toLowerCase().indexOf(val.toLowerCase()) === 0;
-        })
-      )
+    this.storeNameList = this.StoreName.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const store_name = typeof value === 'string' ? value : value?.store_name;
+        return store_name ? this._filterStores(store_name as string) : this.stores.slice();
+      }),
     );
   }
  
@@ -101,13 +99,12 @@ export class ProcessComponent implements OnInit {
       this.storeNameList = response;
 
     });
-
   }
   onClear() {
     this.processForm = this.formBuilder.group({
       date: [''],
       store_name: [''],
-      ProductCateg: [''],
+      ProductCateg : [''],
       SubCategories: [''],
       abcClass: [''],
       ProductName: [''],
@@ -117,10 +114,27 @@ export class ProcessComponent implements OnInit {
     });
   }
 
+  // displayFn(prod_cat: Prod_cat): string {
+  //   return prod_cat && user.name ? user.name : '';
+  // }
+
+  private _filter(prod_cat: string): Product[] {
+    const filterValue = prod_cat.toLowerCase();
+
+    return this.options.filter(option => option.prod_cat.toLowerCase().includes(filterValue));
+  }
+
+  private _filterStores(store_name: string): Store[] {
+    const filterValue = store_name.toLowerCase();
+
+    return this.stores.filter(store => store.store_name.toLowerCase().includes(filterValue));
+  }
+
   getCategoryList() {
     this.storeService.getCategoryNames().subscribe((response) => {
       console.log(response);
-      this.categoryNameList = response;
+      this.options = response;
+      
       this.getSubCategorysList();
     })
   }

@@ -74,6 +74,7 @@ import { DataStorageService } from './core/services/data-storage.service';
     TopBarComponent,
     OptimizeReorderComponent,
     SupplierProductCombinationComponent,
+    StoreSupplierMasterComponent,
     //LoginComponent,
     // MasterDataComponent,
     // ProductMasterComponent,
