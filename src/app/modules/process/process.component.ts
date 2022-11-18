@@ -22,6 +22,13 @@ export interface Product {
 export interface Store {
   store_name: string;  
 }
+export interface ProductName {
+  prod_name: string;  
+}
+
+export interface SubCatName {
+  prod_subcat: string;  
+}
 
 @Component({
   selector: 'app-process',
@@ -39,17 +46,34 @@ export class ProcessComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   minDate = new Date("8-1-2022");
   //storeNameList: any;
-  productNameList: any;
-  subCategoryNameList: any;
+  //productNameList: any;
+  //subCategoryNameList: any;
   blanketOverrideForm!: FormGroup;
 
   ProductCateg = new FormControl<string | Product>('');
   categoryNameList: any;
-  options: Product[] = [];  
+  options: Product[] = [];
+  autoCategoryValue:any;
+  autoProducatValue:any;
+  autoStoreValue:any;
+  autoSubCategoryValue:any;
 
   StoreName = new FormControl<string | Store>('');
   storeNameList: any;
   stores: Store[] = [];  
+
+  ProductName = new FormControl<string | ProductName>('');
+  productNameList: any;
+  products: ProductName[] = [];
+
+  SubCategories = new FormControl<string | SubCatName>('');
+  subCategoryNameList: any;
+  Subcategory: SubCatName[] = [];
+
+  productNameField:any;
+  subcategoryNameField:any;
+  categoryNameField:any;
+  storeNameField:any;
 
   constructor(private http: HttpClient, private storeService: StoreService,
     private formBuilder: FormBuilder) { }  
@@ -91,12 +115,28 @@ export class ProcessComponent implements OnInit {
         return store_name ? this._filterStores(store_name as string) : this.stores.slice();
       }),
     );
+
+    this.productNameList = this.ProductName.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const prod_name = typeof value === 'string' ? value : value?.prod_name;
+        return prod_name ? this._filterProduct(prod_name as string) : this.products.slice();
+      }),
+    );
+
+    this.subCategoryNameList = this.SubCategories.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const prod_subcat = typeof value === 'string' ? value : value?.prod_subcat;
+        return prod_subcat ? this._filterCategory(prod_subcat as string) : this.Subcategory.slice();
+      }),
+    );
   }
  
   getStoresNamesList() {
     this.storeService.getStoreNames().subscribe((response) => {
       console.log(response);
-      this.storeNameList = response;
+      this.stores = response;
 
     });
   }
@@ -112,6 +152,16 @@ export class ProcessComponent implements OnInit {
       CategoryName: [''],
       SubcategoryName: [''],
     });
+    
+    this.productNameField = '';
+    this.subcategoryNameField = '';
+    this.categoryNameField = '';
+    this.storeNameField = '';
+    this.autoCategoryValue ="";
+    this.autoSubCategoryValue = "";
+    this.autoProducatValue = "";
+    this.autoStoreValue = "";
+
   }
 
   // displayFn(prod_cat: Prod_cat): string {
@@ -120,15 +170,32 @@ export class ProcessComponent implements OnInit {
 
   private _filter(prod_cat: string): Product[] {
     const filterValue = prod_cat.toLowerCase();
-
+    this.autoCategoryValue=filterValue;
+    console.log( this.autoCategoryValue)
     return this.options.filter(option => option.prod_cat.toLowerCase().includes(filterValue));
   }
 
   private _filterStores(store_name: string): Store[] {
-    const filterValue = store_name.toLowerCase();
-
-    return this.stores.filter(store => store.store_name.toLowerCase().includes(filterValue));
+    const filterValueStore = store_name.toLowerCase();
+    this.autoStoreValue=filterValueStore;
+    console.log(this.autoStoreValue)
+    return this.stores.filter(store => store.store_name.toLowerCase().includes(filterValueStore));
   }
+
+  private _filterProduct(prod_name: string): ProductName[] {
+    const filterValueProduct = prod_name.toLowerCase();
+    this.autoProducatValue=filterValueProduct;
+    console.log(this.autoProducatValue);
+    return this.products.filter(products => products.prod_name.toLowerCase().includes(filterValueProduct));
+  }
+
+  private _filterCategory(prod_subcat: string): SubCatName[] {
+    const filterValueSub = prod_subcat.toLowerCase();
+    this.autoSubCategoryValue=filterValueSub;
+    return this.Subcategory.filter(subProduct => subProduct.prod_subcat.toLowerCase().includes(filterValueSub));
+  }
+
+  
 
   getCategoryList() {
     this.storeService.getCategoryNames().subscribe((response) => {
@@ -144,33 +211,37 @@ export class ProcessComponent implements OnInit {
     //debugger;
     console.log(this.processForm.value)
     let sub = {
-      "prod_cat": this.processForm.value.ProductCateg,
+      "prod_cat": this.autoCategoryValue,
     }
     this.storeService.getSubCategoryNames(sub).subscribe((response) => {
       console.log(response);
-      this.subCategoryNameList = response
+      this.Subcategory = response
     })
   }
   getProductNamesList() {
     this.storeService.getProductNames().subscribe((response) => {
       console.log(response);
-      this.productNameList = response;
+      this.products = response;
     })
 
   }
+  onSubmit(){
+   this.submit();
+  }
+
 
   onBlanketSubmit() {
-    //const overrideValue = this.blanketOverrideForm.value.BlanketValue;
-    //alert();
-    let obj = {
+    
+   let obj = {
       "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
-      "store_name": "",
-      "prod_cat": this.processForm.value.CategoryName,
-      "prod_subcat": this.processForm.value.SubcategoryName,
-      "prod_name": this.processForm.value.ProductName,
+      "store_name": this.autoStoreValue,
+      "prod_cat": this.autoProducatValue,
+      "prod_subcat":this.autoSubCategoryValue,
+      "prod_name": this.autoStoreValue,
       "sku_id": "",
       "Blanket_Override": this.blanketOverrideForm.value.BlanketValue
     }
+   
 
     this.storeService.getBlanketQty(obj).subscribe((response) => {
 
@@ -183,9 +254,11 @@ export class ProcessComponent implements OnInit {
     })
 
   }
-  onSubmit() {
-    console.log(this.processForm.value);
-    let obj = {
+  submit() {
+    alert("ok");
+    let obj ={};
+    if(this.autoCategoryValue == undefined && this.autoProducatValue == undefined && this.autoStoreValue == undefined){
+     obj = {
       "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
       "store_name": this.processForm.value.store_name,
       "prod_cat": this.processForm.value.ProductCateg,
@@ -193,6 +266,76 @@ export class ProcessComponent implements OnInit {
       "prod_name": this.processForm.value.ProductName,
       "sku_id": this.processForm.value.SKU_CODE
     }
+  }else if(this.autoCategoryValue == undefined){
+    alert(this.autoCategoryValue + " "+ this.autoStoreValue);
+    alert(this.autoCategoryValue + " "+ this.autoProducatValue);
+    obj = {      
+      "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
+      "store_name": this.autoStoreValue,
+      "prod_cat": this.processForm.value.ProductCateg,
+      "prod_subcat": this.processForm.value.SubCategories,
+      "prod_name": this.autoProducatValue,
+      "sku_id": this.processForm.value.SKU_CODE, 
+              
+    }
+  }else if(this.autoProducatValue == undefined){
+    obj = {        
+      "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
+      "store_name": this.autoStoreValue,
+      "prod_cat": this.autoCategoryValue,
+      "prod_subcat":this.autoSubCategoryValue,
+      "prod_name": this.processForm.value.ProductName,
+      "sku_id": this.processForm.value.SKU_CODE
+     
+              
+    }
+  }else if(this.autoStoreValue == undefined){
+    obj = {  
+      "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
+      "store_name": this.processForm.value.store_name,
+      "prod_cat": this.autoCategoryValue,
+      "prod_subcat": this.autoSubCategoryValue,
+      "prod_name": this.autoProducatValue,
+      "sku_id": this.processForm.value.SKU_CODE        
+    }
+  }else if(this.autoCategoryValue == undefined && this.autoProducatValue == undefined){
+    obj = {
+      "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
+      "store_name": this.autoStoreValue,
+      "prod_cat": this.processForm.value.ProductCateg,
+      "prod_subcat": this.processForm.value.SubCategories,
+      "prod_name": this.processForm.value.ProductName,
+      "sku_id": this.processForm.value.SKU_CODE
+    }
+  }else if(this.autoProducatValue == undefined && this.autoStoreValue == undefined){
+    obj = {
+      "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
+      "store_name": this.processForm.value.store_name,
+      "prod_cat": this.autoCategoryValue,
+      "prod_subcat": this.autoSubCategoryValue,
+      "prod_name": this.processForm.value.ProductName,
+      "sku_id": this.processForm.value.SKU_CODE
+    }
+  }else if(this.autoCategoryValue == undefined && this.autoStoreValue == undefined ){
+    obj = {
+      "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
+      "store_name": this.processForm.value.store_name,
+      "prod_cat": this.processForm.value.ProductCateg,
+      "prod_subcat": this.processForm.value.SubCategories,
+      "prod_name": this.autoProducatValue,
+      "sku_id": this.processForm.value.SKU_CODE
+    }
+  }else{
+    obj = {
+      "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
+      "store_name": this.autoStoreValue,
+      "prod_cat": this.autoCategoryValue,
+      "prod_subcat": this.autoSubCategoryValue,
+      "prod_name": this.autoProducatValue,
+      "sku_id":this.processForm.value.SKU_CODE,
+      "Blanket_Override": this.blanketOverrideForm.value.BlanketValue
+    }
+  }
     console.log(obj)
     this.storeService.searchStores(obj).subscribe((response) => {
       for (let prod of response[0]) {
@@ -204,7 +347,8 @@ export class ProcessComponent implements OnInit {
       this.processData.paginator = this.paginator;
       this.processData.sort = this.sort;
     })
-  }
+  } 
+    
 
   onProdEdit(product: any) {
     product.editMode = true;

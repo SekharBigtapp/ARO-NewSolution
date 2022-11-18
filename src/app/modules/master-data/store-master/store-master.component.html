@@ -43,30 +43,50 @@
                         <div class="form-group">
                           <label for="exampleFormControlSelect1">Country </label>
                           <input type="text" class="form-control form-control-sm" placeholder="Country"
-                            aria-label="Country" formControlName="country" />
+                            aria-label="Country" formControlName="country" (change)="onChangeCountry($event)" />
                         </div>
                       </div>
 
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label for="exampleFormControlSelect1">State </label>
-                          <input type="text" class="form-control form-control-sm" placeholder="State"
-                            aria-label="State" formControlName="state" />
+                          <div *ngIf="storeidFlag || storenameFlag">
+                            <label for="exampleFormControlSelect1">State </label>
+                            <input type="text" class="form-control form-control-sm" placeholder="State"
+                              aria-label="State" formControlName="state" />
+                          </div>
+                          <div *ngIf="countryFlag">
+                            <label for="exampleFormControlSelect3">State</label>
+                            <select class="form-control form-control-sm" id="exampleFormControlSelect1"
+                              formControlName="state">
+                              <option *ngFor="let store of StoreMasterDropDownList" [value]="store.store_region">{{store.store_region}}</option>
+                            </select>
+                          </div>                 
+
                         </div>
                       </div>
 
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label for="exampleFormControlSelect1">City </label>
-                          <input type="text" class="form-control form-control-sm" placeholder="City"
-                            aria-label="City" formControlName="city" />
+                          <div  *ngIf="storeidFlag || storenameFlag">
+                            <label for="exampleFormControlSelect1">City </label>
+                            <input type="text" class="form-control form-control-sm" placeholder="City"
+                              aria-label="City" formControlName="city" />
+                          </div>
+                          <div *ngIf="countryFlag">
+                            <label for="exampleFormControlSelect3">City</label>
+                            <select class="form-control form-control-sm" id="exampleFormControlSelect1"
+                              formControlName="state">
+                              <option *ngFor="let store of StoreMasterDropDownList" [value]="store.store_city">{{store.store_city}}</option>
+                            </select>
+                          </div>            
+                           
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
                           <label for="exampleFormControlSelect3">Store ID</label>
                           <input type="text" class="form-control form-control-sm" placeholder="Store ID"
-                            aria-label="storeId" formControlName="storeId" />
+                            aria-label="storeId" formControlName="storeId" (change)="onChangeStoreId($event)" />
                         </div>
                       </div>
 
@@ -80,8 +100,8 @@
 
                           <mat-form-field>
                             <mat-label>Store Name</mat-label>
-                            <input type="text" matInput [formControl]="storeName" [(ngModel)]="storeNamefield" [matAutocomplete]="auto">
-                            <mat-autocomplete #auto="matAutocomplete" >
+                            <input type="text" matInput [formControl]="storeName" [(ngModel)]="storeNamefield"  [matAutocomplete]="auto" >
+                            <mat-autocomplete #auto="matAutocomplete"  #mySelect (optionSelected)="onChangeStoreName($event)">
                               <mat-option *ngFor="let option of storeNameList | async" [value]="option.store_name">
                                 {{option.store_name}}
                               </mat-option>

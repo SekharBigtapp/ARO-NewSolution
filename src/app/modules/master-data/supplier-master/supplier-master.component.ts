@@ -24,6 +24,12 @@ export class SupplierMasterComponent implements OnInit {
   storeNameList: any;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
+
+  SupplierMasterDropDownList:any;
+
+  supplieridFlag = true;
+  suppliernameFlag = true;
+  countryFlag = false;
   
   
   constructor(
@@ -65,6 +71,29 @@ export class SupplierMasterComponent implements OnInit {
 
   }
 
+  onChangeSupplierId(event:Event){
+    console.log((event.target as HTMLInputElement)?.value);
+    this.supplieridFlag = true;
+    this.suppliernameFlag = false;
+    this.countryFlag = false;
+    this.fechingDataSupplierId((event.target as HTMLInputElement)?.value);
+  }
+
+  onChangeSupplierName(event:Event){
+    console.log((event.target as HTMLInputElement)?.value);
+    this.supplieridFlag = false;
+    this.suppliernameFlag = true;
+    this.countryFlag = false;
+    this.fechingDataSupplierName((event.target as HTMLInputElement)?.value);
+  }
+  onChangeSupplierCity(event:Event){
+    console.log((event.target as HTMLInputElement)?.value);
+    this.supplieridFlag = false;
+    this.suppliernameFlag = true;
+    this.countryFlag = false;
+    this.fechingDataSupplierCity((event.target as HTMLInputElement)?.value);
+  }
+
   onSupplierMasterSubmit() {
     let obj = {
       "supp_cntry": this.supplierMasterform.value.country,
@@ -80,4 +109,90 @@ export class SupplierMasterComponent implements OnInit {
       this.supplierMasterData.sort = this.sort;
     })
   }
+
+  onChangeCountry(event:Event){
+    console.log((event.target as HTMLInputElement)?.value);
+    this.supplieridFlag = false;
+    this.suppliernameFlag = false;
+    this.countryFlag = true;
+    let   countryObj = {
+      "id":"",
+      "name":"",
+      "city":"",
+      "cntry":(event.target as HTMLInputElement)?.value,
+      "region":""
+    }
+
+    this.supplierMasterService.getSupplierFilter(countryObj).subscribe((response) => {
+      console.log(response.data);
+      // this.fechingCountryInfo(response.data[0]);
+      // this.storeData = new MatTableDataSource(response[0]);
+     this.SupplierMasterDropDownList =response.data;
+      // this.storeData.paginator = this.paginator;
+      // this.storeData.sort = this.sort;
+    })  
+
+  }
+
+  fechingDataSupplierCity(value:any){
+    let obj={
+      "id":"",
+      "name":"",
+      "city":value,
+      "cntry":"",
+      "region":""
+  }
+  this.supplierMasterService.getSupplierFilter(obj).subscribe((response) => {
+    console.log(response);
+    this.fechingSupplierInfo(response.data[0]);
+    this.supplierMasterData = new MatTableDataSource(response.data[0]);
+    
+  })
+}
+ 
+
+  fechingDataSupplierId(value:any){
+    console.log(value);
+    let obj={
+      "id":value,
+      "name":"",
+      "city":"",
+      "cntry":"",
+      "region":""
+  }
+  this.supplierMasterService.getSupplierFilter(obj).subscribe((response) => {
+    console.log(response);
+    this.fechingSupplierInfo(response.data[0]);
+    this.supplierMasterData = new MatTableDataSource(response.data[0]);
+    
+  })
+}
+
+fechingDataSupplierName(value:any){
+  console.log(value);
+  let obj={
+    "id":"",
+    "name":value,
+    "city":"",
+    "cntry":"",
+    "region":""
+}
+this.supplierMasterService.getSupplierFilter(obj).subscribe((response) => {
+  console.log(response);
+  this.fechingSupplierInfo(response.data[0]);
+  this.supplierMasterData = new MatTableDataSource(response.data[0]);
+  
+})
+}
+
+fechingSupplierInfo(val:any){
+  this.supplierMasterform = this.formBuilder.group({
+    country: val.supp_cntry,
+    state: val.supp_region,
+    city: val.supp_city,
+    supplierID: val.supp_id,
+    supplierName: val.supp_name,
+    
+  });
+}
 }

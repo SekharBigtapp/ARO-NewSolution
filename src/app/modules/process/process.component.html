@@ -70,7 +70,7 @@
                           </select> -->
                           <mat-form-field >
                             <mat-label>Store Name</mat-label>
-                            <input type="text" matInput [formControl]="StoreName" [matAutocomplete]="auto1">
+                            <input type="text" matInput [formControl]="StoreName" [(ngModel)]="storeNameField" [matAutocomplete]="auto1">
                             <mat-autocomplete #auto1="matAutocomplete" >
                               <mat-option *ngFor="let store of storeNameList | async" [value]="store.store_name">
                                 {{store.store_name}}
@@ -90,8 +90,8 @@
                           </select> -->
                           <mat-form-field >
                             <mat-label>Product Categories</mat-label>
-                            <input type="text" matInput [formControl]="ProductCateg" [matAutocomplete]="auto">
-                            <mat-autocomplete #auto="matAutocomplete" >
+                            <input type="text" matInput [formControl]="ProductCateg" [(ngModel)]="categoryNameField" [matAutocomplete]="auto">
+                            <mat-autocomplete #auto="matAutocomplete"  (optionSelected)="getSubCategorysList()" >
                               <mat-option *ngFor="let option of categoryNameList | async" [value]="option.prod_cat">
                                 {{option.prod_cat}}
                               </mat-option>
@@ -102,11 +102,20 @@
 
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label for="exampleFormControlSelect2">Sub Categories</label>
+                          <!-- <label for="exampleFormControlSelect2">Sub Categories</label>
                           <select class="form-control form-control-sm" formControlName="SubCategories">
                             <option *ngFor="let subProduct of subCategoryNameList" [value]="subProduct.prod_subcat">
                               {{subProduct.prod_subcat}}</option>
-                          </select>
+                          </select> -->
+                          <mat-form-field >
+                            <mat-label>Sub Categories</mat-label>
+                            <input type="text" matInput [formControl]="SubCategories" [(ngModel)]="subcategoryNameField" [matAutocomplete]="auto3">
+                            <mat-autocomplete #auto3="matAutocomplete">
+                              <mat-option *ngFor="let subProduct of subCategoryNameList | async" [value]="subProduct.prod_subcat">
+                                {{subProduct.prod_subcat}}
+                              </mat-option>
+                            </mat-autocomplete>
+                          </mat-form-field>
                         </div>
                       </div>
                       <div class="col-md-3">
@@ -136,11 +145,20 @@
 
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label for="exampleFormControlSelect1">Product Name</label>
+                          <!-- <label for="exampleFormControlSelect1">Product Name</label>
                           <select class="form-control form-control-sm" formControlName="ProductName">
                             <option *ngFor="let products of productNameList" [value]="products.prod_name">
                               {{products.prod_name}}</option>
-                          </select>
+                          </select> -->
+                          <mat-form-field >
+                            <mat-label>Product Name</mat-label>
+                            <input type="text" matInput [formControl]="ProductName" [(ngModel)]="productNameField" [matAutocomplete]="auto2">
+                            <mat-autocomplete #auto2="matAutocomplete" >
+                              <mat-option *ngFor="let products of productNameList | async" [value]="products.prod_name">
+                                {{products.prod_name}}
+                              </mat-option>
+                            </mat-autocomplete>
+                          </mat-form-field>
                         </div>
                       </div>
 

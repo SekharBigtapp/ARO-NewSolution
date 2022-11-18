@@ -36,6 +36,12 @@ export class StoreMasterComponent implements OnInit {
   storeNamefield:any;
   autovalue:any;
 
+  StoreMasterDropDownList: any;
+
+  storeidFlag = true;
+  storenameFlag = true;
+  countryFlag = false;
+
   
   constructor(
     private router: Router, private formBuilder: FormBuilder, private storeMasterService: storeMasterService
@@ -50,13 +56,14 @@ export class StoreMasterComponent implements OnInit {
       }),
     );
     this.storeMasterform = this.formBuilder.group({
-      country: [""],
-      state: [""],
+      country: [''],
+      state: [''],
       city: [''],
       storeId: [''],
       storeName: ['']
     });
     this.getStoresNamesList();
+   // this.fechingDataStoreInfo();
   }
   backButtonClick() {
     this.router.navigate(['masters']);
@@ -83,7 +90,7 @@ export class StoreMasterComponent implements OnInit {
   } 
 
   private _filter(store_name: string): User[] {
-    const filterValue = store_name.toLowerCase();
+    const filterValue = store_name;
     console.log(filterValue);
     this.autovalue=filterValue;
 
@@ -118,6 +125,107 @@ export class StoreMasterComponent implements OnInit {
       this.storeData = new MatTableDataSource(response[0]);
       this.storeData.paginator = this.paginator;
       this.storeData.sort = this.sort;
+      
     })
   }
+
+  onChangeStoreId(event: Event){
+    console.log((event.target as HTMLInputElement)?.value);
+    this.storeidFlag = true;
+    this.storenameFlag = false;
+    this.countryFlag = false;
+   this.fechingDataStoreId((event.target as HTMLInputElement)?.value);
+  
+  }
+  onChangeStoreName(storeName:any){
+    console.log("store"+storeName.option.value);
+    this.storeidFlag = false;
+    this.storenameFlag = true;
+    this.countryFlag = false;
+   this.fechingDataStoreName(storeName.option.value);
+   
+  }
+
+  onChangeCountry(event:Event){
+    console.log((event.target as HTMLInputElement)?.value);
+    this.storeidFlag = false;
+    this.storenameFlag = false;
+    this.countryFlag = true;
+    let   countryObj = {
+      "id":"",
+      "name":"",
+      "city":"",
+      "cntry":(event.target as HTMLInputElement)?.value,
+      "region":""
+    }
+
+    this.storeMasterService.getStoreFilter(countryObj).subscribe((response) => {
+      console.log(response.data);
+      // this.fechingCountryInfo(response.data[0]);
+      // this.storeData = new MatTableDataSource(response[0]);
+     this.StoreMasterDropDownList =response.data;
+      // this.storeData.paginator = this.paginator;
+      // this.storeData.sort = this.sort;
+    })  
+
+  }
+ 
+
+  fechingDataStoreId(value:any){
+    let obj = {};
+   
+       obj = {
+        "id":value,
+        "name":"",
+        "city":"",
+        "cntry":"",
+        "region":""
+      }
+
+    
+    console.log(obj);
+    this.storeMasterService.getStoreFilter(obj).subscribe((response) => {
+      console.log(response);
+      this.fechingCountryInfo(response.data[0]);
+      this.storeData = new MatTableDataSource(response[0]);
+      // this.storeData.paginator = this.paginator;
+      // this.storeData.sort = this.sort;
+    })  
+  }
+
+  fechingDataStoreName(storeName:any){
+    let obj = {};
+   
+       obj = {
+        "id":"",
+        "name":storeName,
+        "city":"",
+        "cntry":"",
+        "region":""
+      }
+
+   
+    console.log(obj);
+    this.storeMasterService.getStoreFilter(obj).subscribe((response) => {
+      console.log(response);
+      this.fechingCountryInfo(response.data[0]);
+      this.storeData = new MatTableDataSource(response[0]);
+      // this.storeData.paginator = this.paginator;
+      // this.storeData.sort = this.sort;
+    })  
+  }
+
+  fechingCountryInfo(val:any){
+    console.log(val);
+    this.storeMasterform = this.formBuilder.group({
+      country: val.store_cntry,
+      state: val.store_region,
+      city: val.store_city,
+      storeName: val.store_name,     
+      storeId:val.store_id
+    });
+    this.storeNamefield=val.store_name;
+    console.log(this.storeMasterform);
+  }
+
 }

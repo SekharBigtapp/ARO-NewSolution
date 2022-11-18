@@ -34,7 +34,7 @@ export class StoreSupplierMasterComponent implements OnInit {
   // categoryList: any;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
-
+   
   storename = new FormControl<string | Store>('');
   Storeoptions: Store[] =[];
   storeNameList: any;
@@ -54,13 +54,17 @@ export class StoreSupplierMasterComponent implements OnInit {
   productvalue:any;
   storevalue:any;
   categoryvalue:any;
-  
+
+   dataValues:any = {"supp_name":String,"supp_id":String,"prod_name":String,"prod_cat":String,"store":String};
 
   constructor(
     private router: Router,private formBuilder: FormBuilder, private storesupplierMasterService: storesupplierMasterservice
-  ) { }
+  ) { 
+    
+  }
 
   ngOnInit(): void {
+    
       this.storeNameList = this.storename.valueChanges.pipe(
       startWith(''),
       map(value => {
@@ -98,24 +102,24 @@ export class StoreSupplierMasterComponent implements OnInit {
   } 
 
   private _filterstore(store_name: string): Store[] {
-    const filterValue = store_name.toLowerCase();
+    const filterValue = store_name;
     this.storevalue=filterValue;
     console.log(this.storevalue)
-    return this.Storeoptions.filter(store => store.store_name.toLowerCase().includes(filterValue));
+    return this.Storeoptions.filter(store => store.store_name.includes(filterValue));
   }
 
   private _filterproduct(prod_name: string): Product[] {
-    const filterValue1 = prod_name.toLowerCase();
+    const filterValue1 = prod_name;
     this.productvalue=filterValue1;
     console.log(this.productvalue);
-    return this.ProductOptions.filter(products => products.prod_name.toLowerCase().includes(filterValue1));
+    return this.ProductOptions.filter(products => products.prod_name.includes(filterValue1));
   }
 
   private _filtercategory(prod_cat: string): category[] {
-    const filterValue2 = prod_cat.toLowerCase();
+    const filterValue2 = prod_cat;
     this.categoryvalue=filterValue2;
     console.log(this.categoryvalue);
-    return this.categoryOption.filter(category => category.prod_cat.toLowerCase().includes(filterValue2));
+    return this.categoryOption.filter(category => category.prod_cat.includes(filterValue2));
   }
 
   onclear(){
@@ -165,53 +169,45 @@ export class StoreSupplierMasterComponent implements OnInit {
 
   SupplierMaster() {
 
-    alert(this.productvalue + "Start"+this.storevalue+"Hi"+this.categoryvalue);
-
-    let obj= {}  
-
-    if (this.productvalue == undefined && this.storevalue == undefined && this.categoryvalue == undefined){
-      obj = {
-        "supplier_name": this.storesupplierMasterform.value.supplierName,
-        "supplier_id": this.storesupplierMasterform.value.supplierID,
-        "product": this.storesupplierMasterform.value.productname,
-        "category": this.storesupplierMasterform.value.categoryname,
-        "store": this.storesupplierMasterform.value.storename     
-      }
-    } else if(this.productvalue == undefined){
-      obj = {
-        "supplier_name": this.storesupplierMasterform.value.supplierName,
-        "supplier_id": this.storesupplierMasterform.value.supplierID,
-        "product": this.productvalue,
-        "category": this.storesupplierMasterform.value.categoryname,
-        "store": this.storesupplierMasterform.value.storename     
-      }
-    } else if(this.storevalue == undefined){
-      obj = {
-        "supplier_name": this.storesupplierMasterform.value.supplierName,
-        "supplier_id": this.storesupplierMasterform.value.supplierID,
-        "product": this.storesupplierMasterform.value.productname,
-        "category": this.storesupplierMasterform.value.categoryname,
-        "store":this.storevalue,     
-      }
-    } else if(this.categoryvalue == undefined){
-      obj = {
-        "supplier_name": this.storesupplierMasterform.value.supplierName,
-        "supplier_id": this.storesupplierMasterform.value.supplierID,
-        "product": this.storesupplierMasterform.value.productname,
-        "category": this.categoryvalue,
-        "store":this.storesupplierMasterform.value.storename,     
-      }
-    }else{
-      obj = {
-        "supplier_name": this.storesupplierMasterform.value.supplierName,
-        "supplier_id": this.storesupplierMasterform.value.supplierID,
-        "product": this.productvalue,
-        "category": this.categoryvalue,
-        "store": this.storevalue     
-      }
+    
+      if (this.productvalue == undefined && this.storevalue == undefined && this.categoryvalue == undefined){
+ 
+      this.dataValues.prod_name=this.storesupplierMasterform.value.productname
+      this.dataValues.prod_cat= this.storesupplierMasterform.value.categoryname;
+      this.dataValues.store=this.storesupplierMasterform.value.storename;
+    }    
+    else if(this.productvalue == undefined && this.storevalue == undefined){
+           
+      this.dataValues.store=this.categoryvalue;
+    } 
+    else if(this.storevalue == undefined && this.categoryvalue == undefined){
+      this.dataValues.prod_name=this.productvalue;    
+    } 
+    else if(this.productvalue == undefined && this.categoryvalue == undefined){
+      this.dataValues.store=this.storevalue;
+    }
+    else if(this.categoryvalue == undefined){
+      alert(this.categoryvalue);
+      this.dataValues.prod_name=this.productvalue;    
+      this.dataValues.store=this.storevalue;
+    }
+    else if(this.storevalue == undefined){
+      alert(this.storevalue + ""+this.productvalue);
+      alert(this.storevalue + "" + this.categoryvalue);     
+      this.dataValues.prod_name=this.productvalue;
+      this.dataValues.prod_cat= this.categoryvalue;
+    }
+    else if(this.productvalue == undefined){      
+      this.dataValues.prod_cat= this.categoryvalue;
+      this.dataValues.store=this.storevalue;   
+   }    
+    else{
+      this.dataValues.prod_name=this.productvalue;    
+      this.dataValues.store=this.storevalue;
+      this.dataValues.prod_cat= this.categoryvalue;
     }  
    
-    this.storesupplierMasterService.getStores(obj).subscribe((response) => {
+    this.storesupplierMasterService.getStores(this.dataValues).subscribe((response) => {
       console.log(response);
       this.storesupplierMasterData = new MatTableDataSource(response.data);
       this.storesupplierMasterData.paginator = this.paginator;

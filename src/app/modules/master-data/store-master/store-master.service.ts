@@ -8,6 +8,7 @@ export class storeMasterService extends BaseHttp {
     storeMasterUrl: string = "store-master";
     addNewStoreMasterUrl: string = "add-stores";
     StoreNamesUrl: string = "store-names";
+    StoreFilterUrl: string = "store-filter";
 
     getStores(Obj: any) {
         return this.post<any>(this.storeMasterUrl, Obj);
@@ -19,4 +20,7 @@ export class storeMasterService extends BaseHttp {
     getStoreNames() {
         return this.get<any>(this.StoreNamesUrl);
       }
+    getStoreFilter(Obj:any){
+        return this.post<any>(this.StoreFilterUrl, Obj);
+    }  
 }

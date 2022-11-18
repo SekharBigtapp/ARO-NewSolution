@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { forecastService } from './forecast-service';
 
+
 @Component({
   selector: 'app-forecasted-config',
   templateUrl: './forecasted-config.component.html',

@@ -9,6 +9,7 @@ export class NewLaunchItemService extends BaseHttp {
   CategoryNameUrl:string ="categories";
   ProductNameUrl:string = "product-names";
   SubCategoryNameurl:string = "subcategories";
+  itemLunchFilter:string = "itemlaunch-filter";
  
 
   getNewItemLauchData(obj:any) {
@@ -23,6 +24,10 @@ export class NewLaunchItemService extends BaseHttp {
   }
   getProductNames(){
     return this.get<any>(this.ProductNameUrl);
+  }
+
+  getItemLunchFilter(obj:any){
+    return this.post<any>(this.itemLunchFilter, obj);
   }
  
 }

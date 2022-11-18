@@ -64,10 +64,19 @@
                  
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label for="exampleFormControlSelect3">Store Name</label>
+                      <!-- <label for="exampleFormControlSelect3">Store Name</label>
                       <select class="form-control form-control-sm" id="exampleFormControlSelect1" formControlName="Store_Name">
                       <option *ngFor="let store of storeNameList" [value]="store.store_name">{{store.store_name}}</option>                      
-                      </select>
+                      </select> -->
+                      <mat-form-field>
+                        <mat-label>Store Name</mat-label>
+                        <input type="text" matInput [formControl]="Store_Name" [(ngModel)]="storenamefield" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                          <mat-option *ngFor="let store of storeNameList | async" [value]="store.store_name">
+                            {{store.store_name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
                     </div>
                   </div>
                     <div class="col-md-3">
@@ -78,10 +87,19 @@
                   </div>  
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label for="exampleFormControlSelect3">Product Name</label>
+                      <!-- <label for="exampleFormControlSelect3">Product Name</label>
                       <select class="form-control form-control-sm" formControlName="Product_Name">
                       <option *ngFor="let product of productNameList" [value]="product.prod_name">{{product.prod_name}}</option>
-                      </select>                        
+                      </select>                         -->
+                      <mat-form-field>
+                        <mat-label>Product Name</mat-label>
+                        <input type="text" matInput [formControl]="Product_Name" [(ngModel)]="productnamefield" [matAutocomplete]="auto1">
+                        <mat-autocomplete #auto1="matAutocomplete">
+                          <mat-option *ngFor="let product of productNameList | async" [value]="product.prod_name">
+                            {{product.prod_name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
                     </div>
                   </div>
 
@@ -90,7 +108,7 @@
                     <br>
                   <button type="submit" class=" btn btn-sm btn-success mt-2 mt-sm-0 btn-icon-text">
                     <i class="mdi mdi-checkbox-marked-circle-outline"></i> Filter </button>
-                  <button type="submit" class=" btn btn-sm btn-success mt-2 mt-sm-0 btn-icon-text" style="margin-left: 15px;" (click)="onClear()">
+                  <button type="button" class=" btn btn-sm btn-success mt-2 mt-sm-0 btn-icon-text" style="margin-left: 15px;" (click)="onClear()">
                     <i class="mdi mdi-checkbox-marked-circle-outline"></i> Clear </button>  
                   </div>
 
