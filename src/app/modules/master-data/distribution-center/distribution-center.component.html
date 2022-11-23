@@ -44,23 +44,43 @@
                         <div class="form-group">
                           <label for="exampleFormControlSelect1">Country </label>
                           <input type="text" class="form-control form-control-sm" placeholder="Product Name"
-                            aria-label="Username" formControlName="country" />
+                            aria-label="Username" formControlName="country" (change)="onChangeCountry($event)"  />
                         </div>
                       </div>
 
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label for="exampleFormControlSelect1">State </label>
-                          <input type="text" class="form-control form-control-sm" placeholder="Product Name"
-                            aria-label="Username" formControlName="state" />
+                          <div *ngIf="disidFlag || disnameFlag">
+                            <label for="exampleFormControlSelect1">State </label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Product Name"
+                              aria-label="Username" formControlName="state" />
+                          </div>
+                          <div *ngIf="discountryFlag">
+                            <label for="exampleFormControlSelect3">State</label>
+                            <select class="form-control form-control-sm" id="exampleFormControlSelect1"
+                              formControlName="state">
+                              <option *ngFor="let distribution of DistributionMasterDropDownList" [value]="distribution.dc_region">{{distribution.dc_region}}</option>
+                            </select>
+                          </div>
+                          
                         </div>
                       </div>
 
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label for="exampleFormControlSelect1">City </label>
-                          <input type="text" class="form-control form-control-sm" placeholder="Product Name"
+                          <div *ngIf="disidFlag || disnameFlag">
+                            <label for="exampleFormControlSelect1">City </label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Product Name"
                             aria-label="Username" formControlName="city" />
+                          </div>
+                          <div *ngIf="discountryFlag">
+                            <label for="exampleFormControlSelect3">City</label>
+                            <select class="form-control form-control-sm" id="exampleFormControlSelect1"
+                              formControlName="city">
+                              <option *ngFor="let distribution of DistributionMasterDropDownList" [value]="distribution.dc_city">{{distribution.dc_city}}</option>
+                            </select>
+                          </div>
+                          
                         </div>
                       </div>
 
@@ -68,7 +88,7 @@
                         <div class="form-group">
                           <label for="exampleFormControlSelect3">Distribution Center ID</label>
                           <input type="text" class="form-control form-control-sm" placeholder="Product SKU"
-                            aria-label="Username" formControlName="distributionCenterID" />
+                            aria-label="Username" formControlName="distributionCenterID" (change)="onChangeDistributionId($event)"/>
                         </div>
                       </div>
 
@@ -76,7 +96,7 @@
                         <div class="form-group">
                           <label for="exampleFormControlSelect3">Distribution Central Name</label>
                           <input type="text" class="form-control form-control-sm" placeholder="Product SKU"
-                            aria-label="Username" formControlName="distributionCentralName" />
+                            aria-label="Username" formControlName="distributionCentralName" (change)="onChangeDistributionName($event)" />
                         </div>
                       </div>
 
@@ -85,7 +105,7 @@
                         <label> &nbsp; </label> <br>
                         <button type="submit" class=" btn btn-sm btn-success mt-2 mt-sm-0 btn-icon-text">
                           <i class="mdi mdi-checkbox-marked-circle-outline"></i> Filter </button>
-                        <button type="submit" class=" btn btn-sm btn-success mt-2 mt-sm-0 btn-icon-text" style="margin-left:15px;" (click)="onClear()">
+                        <button type="button" class=" btn btn-sm btn-success mt-2 mt-sm-0 btn-icon-text" style="margin-left:15px;" (click)="onClear()">
                           <i class="mdi mdi-checkbox-marked-circle-outline"></i> Clear </button>  
                       </div>
 

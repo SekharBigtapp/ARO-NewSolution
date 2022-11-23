@@ -49,7 +49,7 @@
                         <div class="form-group">
                           <mat-form-field class="pt-2">
                             <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date"
-                              [min]="minDate" />
+                              [min]="minDate"  />
 
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
@@ -71,7 +71,7 @@
                           <mat-form-field >
                             <mat-label>Store Name</mat-label>
                             <input type="text" matInput [formControl]="StoreName" [(ngModel)]="storeNameField" [matAutocomplete]="auto1">
-                            <mat-autocomplete #auto1="matAutocomplete" >
+                            <mat-autocomplete #auto1="matAutocomplete"  >
                               <mat-option *ngFor="let store of storeNameList | async" [value]="store.store_name">
                                 {{store.store_name}}
                               </mat-option>
@@ -167,7 +167,7 @@
                         <div class="form-group">
                           <label for="exampleFormControlSelect3"> SKU Code</label>
                           <input type="text" class="form-control form-control-sm" placeholder="SKU Code"
-                            aria-label="Username" placeholder="SKU_CODE" formControlName='SKU_CODE' />
+                            aria-label="Username" placeholder="SKU_CODE" formControlName='SKU_CODE'  />
                         </div>
                       </div>
 

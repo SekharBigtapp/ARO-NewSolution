@@ -12,7 +12,8 @@ export class StoreService extends BaseHttp {
   CategoryNameUrl:string ="categories";
   ProductNameUrl:string = "product-names";
   SubCategoryNameurl:string = "subcategories"
-  updatedBlanketUrl : string = "update-blanketquantity"
+  updatedBlanketUrl : string = "update-blanketquantity";
+  reorderFilter: string = "reorder-filter";
 
   searchStores(data: any) {
     return this.post<any>(this.searchStoreUrl, data);
@@ -36,6 +37,10 @@ export class StoreService extends BaseHttp {
   }
   getBlanketQty(update:any){
     return this.post<any>(this.updatedBlanketUrl, update)
+  }
+
+  getReorderFilter(obj:any){
+    return this.post<any>(this.reorderFilter, obj)
   }
 
 

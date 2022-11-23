@@ -27,7 +27,7 @@ export class StoreStoreTransferComponent implements OnInit {
   displayColumns: string[] = ['prod_name', 'sku_id', 'store_name', 'store_id', 'phy_stock_on_hand','Transfer_Qty','Transfer_to_Store','Actions']
   storeTransferMasterData!: MatTableDataSource<any>;
   pageSize = 10;
-  //storeNameList: any;
+  storeNameList2: any;
   //productNameList: any;
   overridestore: any;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
@@ -83,6 +83,7 @@ export class StoreStoreTransferComponent implements OnInit {
     this.storetransferservice.getStoreNames().subscribe((response) => {
       console.log(response);
       this.options = response;
+      this.storeNameList2 =response;
     });
 
   }

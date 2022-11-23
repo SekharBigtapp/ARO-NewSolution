@@ -36,8 +36,7 @@ import { MatAutocomplete, MatAutocompleteModule } from '@angular/material/autoco
     MatSortModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSlideToggleModule,
-    
+    MatSlideToggleModule,    
     MatAutocompleteModule,
   ],
   providers: [DatePipe,StoreToStoreTransferConfigService,forecastService],

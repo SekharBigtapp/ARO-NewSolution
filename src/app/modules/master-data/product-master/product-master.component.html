@@ -49,7 +49,7 @@
                         <mat-form-field>
                           <mat-label>Product Name</mat-label>
                           <input type="text" matInput [formControl]="productName" [(ngModel)]="productnamefield" [matAutocomplete]="auto">
-                          <mat-autocomplete #auto="matAutocomplete">
+                          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onChangeProductName($event)">
                             <mat-option *ngFor="let products of productNameList | async" [value]="products.prod_name">
                               {{products.prod_name}}
                             </mat-option>
@@ -85,7 +85,7 @@
                         <div class="form-group">
                           <label for="exampleFormControlSelect3"> SKU Code</label>
                           <input type="text" class="form-control form-control-sm" placeholder="Product SKU"
-                            aria-label="Username" formControlName="SKUCode" />
+                            aria-label="Username" formControlName="SKUCode" (change)="onChangeSkuId($event)"/>
                         </div>
                       </div>
 

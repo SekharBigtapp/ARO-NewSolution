@@ -132,7 +132,54 @@ export class ProductMasterComponent implements OnInit {
 
   onProductMasterSubmit(){
      this.ProductMaster();
-  } 
+  }
+
+  onChangeSkuId(event: Event){
+    console.log((event.target as HTMLInputElement)?.value);
+    this.fechingDataSkuId((event.target as HTMLInputElement)?.value);
+  }
+
+  onChangeProductName(productname:any){
+    console.log("store"+productname.option.value);
+    this.fechingDataProductName(productname.option.value);
+  }
+  
+  fechingDataSkuId(value:any){ 
+   
+    let  obj = {    
+       "category":"",
+       "subcategory":"",
+       "skuid":value,
+       "product":""
+    }
+  console.log(obj);
+  this.productMasterService.getItemFilter(obj).subscribe((response) => {
+    console.log(response);
+    this.fechingItemLunchInfo(response.data[0]);
+    this.productdata = new MatTableDataSource(response[0]);
+    // this.storeData.paginator = this.paginator;
+    // this.storeData.sort = this.sort;
+  })  
+ }
+ 
+ fechingDataProductName(productname:any){
+   let  obj = {    
+     "category":"",
+     "subcategory":"",
+     "skuid":"",
+     "product":productname
+  }
+ 
+ console.log(obj);
+ this.productMasterService.getItemFilter(obj).subscribe((response) => {
+  console.log(response);
+  this.fechingItemLunchInfo(response.data[0]);
+  this.productdata = new MatTableDataSource(response[0]);
+  // this.storeData.paginator = this.paginator;
+  // this.storeData.sort = this.sort;
+ })  
+ 
+ }
 
   ProductMaster() {
     let data = {}
@@ -177,6 +224,20 @@ export class ProductMasterComponent implements OnInit {
   onProdEdit(element: any) { }
 
   onProdSave(element: any) { }
+
+  fechingItemLunchInfo(val:any){
+
+    this.productMasterForm = this.formBuilder.group({
+      
+      SKUCode: val.sku_id,
+      
+    });
+   
+  
+    this.productnamefield = val.prod_name;
+    this.categorynamefield=val.prod_cat;
+   
+  }
 }
 
 

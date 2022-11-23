@@ -13,6 +13,7 @@ export class ProductMasterService extends BaseHttp {
     productListurl : string = "product-names"
     categoriesUrl : string = "categories";
     subCategoriesUrl : string = "subcategories"
+    itemLunchFilter:string = "itemlaunch-filter";
 
     getproductMasterData(Obj: any) {
         return this.post<any>(this.productMasterUrl, Obj);
@@ -30,6 +31,10 @@ export class ProductMasterService extends BaseHttp {
 
     getSubCategory (sub:any){
         return this.post<any>(this.subCategoriesUrl, sub);
+    }
+
+    getItemFilter(obj:any){
+        return this.post<any>(this.itemLunchFilter, obj);
     }
 
 }

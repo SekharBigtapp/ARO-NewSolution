@@ -138,6 +138,8 @@ export class ProcessComponent implements OnInit {
       console.log(response);
       this.stores = response;
 
+      
+
     });
   }
   onClear() {
@@ -169,17 +171,18 @@ export class ProcessComponent implements OnInit {
   // }
 
   private _filter(prod_cat: string): Product[] {
-    const filterValue = prod_cat.toLowerCase();
+    const filterValue = prod_cat;
     this.autoCategoryValue=filterValue;
     console.log( this.autoCategoryValue)
-    return this.options.filter(option => option.prod_cat.toLowerCase().includes(filterValue));
+    return this.options.filter(option => option.prod_cat.includes(filterValue));
   }
 
   private _filterStores(store_name: string): Store[] {
-    const filterValueStore = store_name.toLowerCase();
+    const filterValueStore = store_name;
     this.autoStoreValue=filterValueStore;
+    
     console.log(this.autoStoreValue)
-    return this.stores.filter(store => store.store_name.toLowerCase().includes(filterValueStore));
+    return this.stores.filter(store => store.store_name.includes(filterValueStore));
   }
 
   private _filterProduct(prod_name: string): ProductName[] {
@@ -190,12 +193,25 @@ export class ProcessComponent implements OnInit {
   }
 
   private _filterCategory(prod_subcat: string): SubCatName[] {
-    const filterValueSub = prod_subcat.toLowerCase();
+    const filterValueSub = prod_subcat;
     this.autoSubCategoryValue=filterValueSub;
-    return this.Subcategory.filter(subProduct => subProduct.prod_subcat.toLowerCase().includes(filterValueSub));
+    return this.Subcategory.filter(subProduct => subProduct.prod_subcat.includes(filterValueSub));
   }
 
-  
+  // onChangeSkuId(event: Event){
+  //   console.log((event.target as HTMLInputElement)?.value);
+  //   this.fechingDataSkuId((event.target as HTMLInputElement)?.value);
+  // }
+
+  // onChangeStoreName(event: Event){
+  //   console.log((event.target as HTMLInputElement)?.value);
+  //   this.fechingDataStoreName((event.target as HTMLInputElement)?.value);
+  // }
+
+  // onChangeDate(event: Event){
+  //   console.log((event.target as HTMLInputElement)?.value);
+  //   this.fechingDate((event.target as HTMLInputElement)?.value);
+  // }
 
   getCategoryList() {
     this.storeService.getCategoryNames().subscribe((response) => {
@@ -228,6 +244,68 @@ export class ProcessComponent implements OnInit {
   onSubmit(){
    this.submit();
   }
+
+//   fechingDate(value:any){
+//     let  obj = {    
+//       "date": value,
+//       "store":"",
+//       "category":"",
+//       "subcategory":"",
+//       "abc":"",
+//       "skuid":"",
+//       "product":""
+//     }
+//   console.log(obj);
+//   this.storeService.getReorderFilter(obj).subscribe((response) => {
+//     console.log(response);
+//     this.fechingItemLunchInfo(response.data);
+//     this.processData = new MatTableDataSource(response.data);
+//     this.processData.paginator = this.paginator;
+//      this.processData.sort = this.sort;
+//   })  
+//   }
+
+//   fechingDataSkuId(value:any){ 
+   
+//     let  obj = {    
+//       "date": "",
+//       "store":"",
+//       "category":"",
+//       "subcategory":"",
+//       "abc":"",
+//       "skuid":value,
+//       "product":""
+//     }
+//   console.log(obj);
+//   this.storeService.getReorderFilter(obj).subscribe((response) => {
+//     console.log(response);
+//     this.fechingItemLunchInfo(response.data);
+//     this.processData = new MatTableDataSource(response.data);
+//     this.processData.paginator = this.paginator;
+//      this.processData.sort = this.sort;
+//   })  
+//  }
+
+//  fechingDataStoreName(value:any){ 
+   
+//   let  obj = {    
+//     "date": "",
+//     "store":value,
+//     "category":"",
+//     "subcategory":"",
+//     "abc":"",
+//     "skuid":"",
+//     "product":""
+//   }
+// console.log(obj);
+// this.storeService.getReorderFilter(obj).subscribe((response) => {
+//   console.log(response);
+//   this.fechingItemLunchInfo(response.data);
+//   this.processData = new MatTableDataSource(response.data);
+//   this.processData.paginator = this.paginator;
+//    this.processData.sort = this.sort;
+// })  
+// }
 
 
   onBlanketSubmit() {
@@ -267,8 +345,6 @@ export class ProcessComponent implements OnInit {
       "sku_id": this.processForm.value.SKU_CODE
     }
   }else if(this.autoCategoryValue == undefined){
-    alert(this.autoCategoryValue + " "+ this.autoStoreValue);
-    alert(this.autoCategoryValue + " "+ this.autoProducatValue);
     obj = {      
       "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
       "store_name": this.autoStoreValue,
@@ -298,32 +374,23 @@ export class ProcessComponent implements OnInit {
       "prod_name": this.autoProducatValue,
       "sku_id": this.processForm.value.SKU_CODE        
     }
-  }else if(this.autoCategoryValue == undefined && this.autoProducatValue == undefined){
-    obj = {
-      "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
-      "store_name": this.autoStoreValue,
-      "prod_cat": this.processForm.value.ProductCateg,
-      "prod_subcat": this.processForm.value.SubCategories,
-      "prod_name": this.processForm.value.ProductName,
-      "sku_id": this.processForm.value.SKU_CODE
-    }
-  }else if(this.autoProducatValue == undefined && this.autoStoreValue == undefined){
-    obj = {
-      "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
-      "store_name": this.processForm.value.store_name,
-      "prod_cat": this.autoCategoryValue,
-      "prod_subcat": this.autoSubCategoryValue,
-      "prod_name": this.processForm.value.ProductName,
-      "sku_id": this.processForm.value.SKU_CODE
-    }
   }else if(this.autoCategoryValue == undefined && this.autoStoreValue == undefined ){
-    obj = {
+    obj = {  
       "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
       "store_name": this.processForm.value.store_name,
       "prod_cat": this.processForm.value.ProductCateg,
       "prod_subcat": this.processForm.value.SubCategories,
       "prod_name": this.autoProducatValue,
-      "sku_id": this.processForm.value.SKU_CODE
+      "sku_id": this.processForm.value.SKU_CODE        
+    }
+  }else if(this.autoCategoryValue == undefined && this.autoProducatValue == undefined ){
+    obj = {  
+      "Date": this.pipe.transform(this.processForm.value.date, 'yyyy-MM-dd'),
+      "store_name": this.autoStoreValue,
+      "prod_cat": this.processForm.value.ProductCateg,
+      "prod_subcat": this.processForm.value.SubCategories,
+      "prod_name": this.processForm.value.ProductName,
+      "sku_id": this.processForm.value.SKU_CODE        
     }
   }else{
     obj = {
@@ -359,7 +426,6 @@ export class ProcessComponent implements OnInit {
     const myFormattedDate = this.pipe.transform(product.Date, 'yyyy-MM-dd');
     let prodObj = {
       "Date": myFormattedDate,
-      "store_id": product.store_id,
       "article_id": product.article_id,
       //"Product_Key": product.Product_Key,
       "final_qty": this.overrideReorder
@@ -371,6 +437,23 @@ export class ProcessComponent implements OnInit {
       this.overrideReorder = undefined;
       product.editMode = false;
     });
+  }
+
+  fechingItemLunchInfo(val:any){
+    this.processForm = this.formBuilder.group({
+      date: val.date,
+      store_name: [''],
+      ProductCateg: [''],
+      SubCategories: [''],
+      abcClass: [''],
+      ProductName: [''],
+      SKU_CODE: val.sku_id,
+      CategoryName : [''],
+      SubcategoryName: [''],
+    });
+
+    this.storeNameField = val.store_name;
+  
   }
 
 }
